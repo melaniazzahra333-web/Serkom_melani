@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Profil extends Model
+{
+    protected $table = 'profils';
+
+    protected $primaryKey = 'id_profil';
+
+    protected $fillable = [
+        'nama_sekolah',
+        'kepala_sekolah',
+        'foto',
+        'logo',
+        'npsn',
+        'alamat',
+        'kontak',
+        'visi_misi',
+        'tahun_berdiri',
+        'deskripsi',
+    ];
+}
