@@ -3255,3 +3255,29 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+.sidebar-logout {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: rgba(255,255,255,.8);
+    font-size: 14px;
+    cursor: pointer;
+    transition: .2s ease;
+    text-align: left;
+}
+
+.sidebar-logout i {
+    width: 18px;
+    text-align: center;
+}
+
+.sidebar-logout:hover {
+    background: rgba(255,255,255,.1);
+    color: #fff;
+}
