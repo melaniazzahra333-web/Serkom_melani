@@ -4,92 +4,208 @@
 
 <div class="container-fluid">
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Data Siswa</h2>
+    {{-- HEADER --}}
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
-        <a href="{{ route('admin.siswa.create') }}" class="btn btn-primary">
-            Tambah Siswa
-        </a>
+        <div>
+            <h2 class="fw-bold mb-1" style="color:#244D73;">
+                <i class="fa-solid fa-users me-2"></i>
+                Data Siswa
+            </h2>
+
+            <p class="text-muted mb-0">
+                Kelola data siswa sekolah
+            </p>
+        </div>
+
+        {{-- TOMBOL TAMBAH HANYA UNTUK ADMIN --}}
+        @if(session('user_role') === 'Admin')
+            <a href="{{ route('admin.siswa.create') }}"
+               class="btn btn-success">
+
+                <i class="fa-solid fa-plus me-1"></i>
+                Tambah Siswa
+
+            </a>
+        @endif
+
     </div>
 
-    <div class="card">
-        <div class="card-body">
 
-            <table class="table table-bordered">
+    {{-- CARD --}}
+    <div class="card border-0 shadow-sm">
 
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>NISN</th>
-                        <th>Nama Siswa</th>
-                        <th>Jenis Kelamin</th>
-                        <th>Tahun Masuk</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
+        <div class="card-body p-0">
 
-                <tbody>
+            <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
 
-                    @foreach($siswas as $index => $siswa)
+                <div>
+                    <h5 class="fw-bold mb-1" style="color:#244D73;">
+                        Daftar Siswa
+                    </h5>
 
-                    <tr>
+                    <small class="text-muted">
+                        Data siswa yang terdaftar
+                    </small>
+                </div>
 
-                        <td>
-                            {{ $index + 1 }}
-                        </td>
+                <span class="badge rounded-pill"
+                      style="background:#C8DFDB;color:#3368A0;">
+                    {{ $siswas->count() }} Siswa
+                </span>
 
-                        <td>
-                            {{ $siswa->nisn }}
-                        </td>
+            </div>
 
-                        <td>
-                            {{ $siswa->nama_siswa }}
-                        </td>
 
-                        <td>
-                            {{ $siswa->jenis_kelamin }}
-                        </td>
+            {{-- TABLE --}}
+            <div class="table-responsive">
 
-                        <td>
-                            {{ $siswa->tahun_masuk }}
-                        </td>
+                <table class="table table-hover align-middle mb-0">
 
-                        <td>
+                    <thead class="table-light">
 
-                            <a href="{{ route('admin.siswa.edit', $siswa->id_siswa) }}"
-                               class="btn btn-warning btn-sm">
-                                Edit
-                            </a>
+                        <tr>
 
-                            <form action="{{ route('admin.siswa.destroy', $siswa->id_siswa) }}"
-                                  method="POST"
-                                  style="display:inline;">
+                            <th>No</th>
+                            <th>NISN</th>
+                            <th>Nama Siswa</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Tahun Masuk</th>
 
-                                @csrf
+                            {{-- AKSI HANYA DITAMPILKAN UNTUK ADMIN --}}
+                            @if(session('user_role') === 'Admin')
+                                <th>Aksi</th>
+                            @endif
 
-                                @method('DELETE')
+                        </tr>
 
-                                <button type="submit"
-                                        class="btn btn-danger btn-sm"
-                                        onclick="return confirm('Yakin ingin menghapus data ini?')">
+                    </thead>
 
-                                    Hapus
 
-                                </button>
+                    <tbody>
 
-                            </form>
+                        @forelse($siswas as $siswa)
 
-                        </td>
+                        <tr>
 
-                    </tr>
+                            <td>
+                                {{ $loop->iteration }}
+                            </td>
 
-                    @endforeach
 
-                </tbody>
+                            <td>
+                                {{ $siswa->nisn }}
+                            </td>
 
-            </table>
+
+                            <td class="fw-semibold">
+                                {{ $siswa->nama_siswa }}
+                            </td>
+
+
+                            <td>
+
+                                @if($siswa->jenis_kelamin == 'Laki-laki')
+
+                                    <span class="badge bg-primary">
+                                        Laki-laki
+                                    </span>
+
+                                @elseif($siswa->jenis_kelamin == 'Perempuan')
+
+                                    <span class="badge"
+                                          style="background:#D45060;color:white;">
+                                        Perempuan
+                                    </span>
+
+                                @else
+
+                                    {{ $siswa->jenis_kelamin }}
+
+                                @endif
+
+                            </td>
+
+
+                            <td>
+                                {{ $siswa->tahun_masuk }}
+                            </td>
+
+
+                            {{-- EDIT & HAPUS HANYA UNTUK ADMIN --}}
+                            @if(session('user_role') === 'Admin')
+
+                                <td>
+
+                                    <div class="d-flex gap-1">
+
+                                        {{-- EDIT --}}
+                                        <a
+                                            href="{{ route('admin.siswa.edit', $siswa->id_siswa) }}"
+                                            class="btn btn-sm btn-warning"
+                                            title="Edit"
+                                        >
+                                            <i class="fa-solid fa-pen"></i>
+                                        </a>
+
+
+                                        {{-- HAPUS --}}
+                                        <form
+                                            action="{{ route('admin.siswa.destroy', $siswa->id_siswa) }}"
+                                            method="POST"
+                                            onsubmit="return confirm('Yakin ingin menghapus data siswa ini?')"
+                                        >
+
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button
+                                                type="submit"
+                                                class="btn btn-sm btn-danger"
+                                                title="Hapus"
+                                            >
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </td>
+
+                            @endif
+
+                        </tr>
+
+                        @empty
+
+                        <tr>
+
+                            <td
+                                colspan="{{ session('user_role') === 'Admin' ? 6 : 5 }}"
+                                class="text-center py-5"
+                            >
+
+                                <i class="fa-solid fa-users fs-1 text-secondary mb-3"></i>
+
+                                <p class="text-muted mb-0">
+                                    Belum ada data siswa.
+                                </p>
+
+                            </td>
+
+                        </tr>
+
+                        @endforelse
+
+                    </tbody>
+
+                </table>
+
+            </div>
 
         </div>
+
     </div>
 
 </div>

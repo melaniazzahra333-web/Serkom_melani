@@ -18,13 +18,16 @@
             </p>
         </div>
 
-        <a href="{{ route('admin.guru.create') }}"
-           class="btn btn-success">
+        {{-- TOMBOL TAMBAH HANYA UNTUK ADMIN --}}
+        @if(session('user_role') === 'Admin')
+            <a href="{{ route('admin.guru.create') }}"
+               class="btn btn-success">
 
-            <i class="fa-solid fa-plus me-1"></i>
-            Tambah Guru
+                <i class="fa-solid fa-plus me-1"></i>
+                Tambah Guru
 
-        </a>
+            </a>
+        @endif
 
     </div>
 
@@ -62,14 +65,17 @@
                     <thead class="table-light">
 
                         <tr>
-
                             <th>No</th>
                             <th>Foto</th>
                             <th>Nama Guru</th>
                             <th>NIP</th>
                             <th>Jabatan</th>
                             <th>Mata Pelajaran</th>
-                            <th>Aksi</th>
+
+                            {{-- AKSI HANYA DITAMPILKAN UNTUK ADMIN --}}
+                            @if(session('user_role') === 'Admin')
+                                <th>Aksi</th>
+                            @endif
 
                         </tr>
 
@@ -97,6 +103,7 @@
                                         height="45"
                                         class="rounded"
                                         style="object-fit:cover;"
+                                        alt="Foto Guru"
                                     >
 
                                 @else
@@ -109,16 +116,12 @@
 
 
                             <td class="fw-semibold">
-
                                 {{ $guru->nama_guru }}
-
                             </td>
 
 
                             <td>
-
                                 {{ $guru->nip }}
-
                             </td>
 
 
@@ -135,45 +138,52 @@
 
 
                             <td>
-
                                 {{ $guru->mapel }}
-
                             </td>
 
 
-                            <td>
+                            {{-- EDIT & HAPUS HANYA UNTUK ADMIN --}}
+                            @if(session('user_role') === 'Admin')
 
-                                <div class="d-flex gap-1">
+                                <td>
 
-                                    <a
-                                        href="{{ route('admin.guru.edit', ['id' => $guru->id_guru]) }}"
-                                        class="btn btn-sm btn-warning"
-                                    >
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
+                                    <div class="d-flex gap-1">
 
-
-                                    <form
-                                        action="{{ route('admin.guru.destroy', ['id' => $guru->id_guru]) }}"
-                                        method="POST"
-                                        onsubmit="return confirm('Yakin ingin menghapus data guru ini?')"
-                                    >
-
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <button
-                                            type="submit"
-                                            class="btn btn-sm btn-danger"
+                                        {{-- EDIT --}}
+                                        <a
+                                            href="{{ route('admin.guru.edit', ['id' => $guru->id_guru]) }}"
+                                            class="btn btn-sm btn-warning"
+                                            title="Edit"
                                         >
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
+                                            <i class="fa-solid fa-pen"></i>
+                                        </a>
 
-                                    </form>
 
-                                </div>
+                                        {{-- HAPUS --}}
+                                        <form
+                                            action="{{ route('admin.guru.destroy', ['id' => $guru->id_guru]) }}"
+                                            method="POST"
+                                            onsubmit="return confirm('Yakin ingin menghapus data guru ini?')"
+                                        >
 
-                            </td>
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button
+                                                type="submit"
+                                                class="btn btn-sm btn-danger"
+                                                title="Hapus"
+                                            >
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </td>
+
+                            @endif
 
                         </tr>
 
@@ -181,7 +191,10 @@
 
                         <tr>
 
-                            <td colspan="7" class="text-center py-5">
+                            <td
+                                colspan="{{ session('user_role') === 'Admin' ? 7 : 6 }}"
+                                class="text-center py-5"
+                            >
 
                                 <i class="fa-solid fa-users fs-1 text-secondary mb-3"></i>
 

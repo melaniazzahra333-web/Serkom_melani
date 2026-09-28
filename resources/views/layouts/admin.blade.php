@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>SMKS YPC TASIKMALAYA</title>
+    <title>SMA CENDIKIA</title>
 
     <meta name="description" content="Sistem Informasi Sekolah SMKS YPC TASIKMALAYA">
 
@@ -18,6 +18,19 @@
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/all.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <style>
+        .site-footer {
+    width: calc(100% + 80px);
+    margin-left: -40px !important;
+    margin-right: -40px !important;
+    margin-bottom: -30px !important;
+    padding: 22px 20px;
+    background: #2b6cb0;
+    color: #FFFFFF;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+    </style>
 </head>
 
 <body>
@@ -28,7 +41,7 @@
         <!-- BRAND -->
         <a href="{{ route('admin.dashboard') }}" class="sidebar-brand">
             <i class="bi bi-asterisk"></i>
-            <span>SMKS YPC TASIKMALAYA</span>
+            <span>SMA CENDIKIA</span>
         </a>
 
 
@@ -344,7 +357,7 @@
         <!-- PROFILE SIDEBAR -->
         <div class="sidebar-profile">
 
-            <img src="{{ asset('assets/images/avatar.png') }}"
+            <img src="{{ asset('assets/images/profil2.jpg') }}"
                  alt="Profile"
                  class="sidebar-profile-img">
 
@@ -512,7 +525,7 @@
                             data-bs-toggle="dropdown"
                             aria-expanded="false">
 
-                        <img src="{{ asset('assets/images/avatar.png') }}"
+                        <img src="{{ asset('assets/images/profil2.jpg') }}"
                              alt="Profile"
                              class="navbar-profile-img">
 
@@ -570,22 +583,17 @@
 
 
         <!-- FOOTER -->
-        <footer class="mt-4 mx-3 mb-3 rounded-3 py-4 shadow-sm"
-                style="background-color: #2b6cb0;">
+        <footer class="site-footer">
+    <div class="text-center">
+        <p class="fw-bold mb-1">
+            SMKS YPC TASIKMALAYA
+        </p>
 
-            <div class="text-center text-white">
-
-                <p class="fw-bold mb-1">
-                    SMKS YPC TASIKMALAYA
-                </p>
-
-                <small>
-                    &copy; 2026 Sistem Informasi Sekolah
-                </small>
-
-            </div>
-
-        </footer>
+        <small>
+            &copy; 2026 Sistem Informasi Sekolah
+        </small>
+    </div>
+</footer>
 
     </div>
     <!-- END MAIN WRAPPER -->

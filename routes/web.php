@@ -39,64 +39,40 @@ Route::middleware('auth.admin')->group(function () {
 
 
     // USER
-    Route::get('user', [UserController::class, 'index'])
-        ->name('admin.user');
+    // USER
+Route::get('user', [UserController::class, 'index'])->name('admin.user');
 
-    Route::get('user/create', [UserController::class, 'create'])
-        ->name('admin.user.create');
+Route::middleware('role.admin')->group(function () {
+    Route::get('user/create', [UserController::class, 'create'])->name('admin.user.create');
+    Route::post('user', [UserController::class, 'store'])->name('admin.user.store');
+    Route::get('user/{id}/edit', [UserController::class, 'edit'])->name('admin.user.edit');
+    Route::put('user/{id}', [UserController::class, 'update'])->name('admin.user.update');
+    Route::delete('user/{id}', [UserController::class, 'destroy'])->name('admin.user.destroy');
+});
 
-    Route::post('user', [UserController::class, 'store'])
-        ->name('admin.user.store');
-
-    Route::get('user/{id}/edit', [UserController::class, 'edit'])
-        ->name('admin.user.edit');
-
-    Route::put('user/{id}', [UserController::class, 'update'])
-        ->name('admin.user.update');
-
-    Route::delete('user/{id}', [UserController::class, 'destroy'])
-        ->name('admin.user.destroy');
-
-
+    
     // GURU
-    Route::get('guru', [GuruController::class, 'index'])
-        ->name('admin.guru');
+Route::get('guru', [GuruController::class, 'index'])->name('admin.guru');
 
-    Route::get('guru/create', [GuruController::class, 'create'])
-        ->name('admin.guru.create');
-
-    Route::post('guru', [GuruController::class, 'store'])
-        ->name('admin.guru.store');
-
-    Route::get('guru/{id}/edit', [GuruController::class, 'edit'])
-        ->name('admin.guru.edit');
-
-    Route::put('guru/{id}', [GuruController::class, 'update'])
-        ->name('admin.guru.update');
-
-    Route::delete('guru/{id}', [GuruController::class, 'destroy'])
-        ->name('admin.guru.destroy');
-
+Route::middleware('role.admin')->group(function () {
+    Route::get('guru/create', [GuruController::class, 'create'])->name('admin.guru.create');
+    Route::post('guru', [GuruController::class, 'store'])->name('admin.guru.store');
+    Route::get('guru/{id}/edit', [GuruController::class, 'edit'])->name('admin.guru.edit');
+    Route::put('guru/{id}', [GuruController::class, 'update'])->name('admin.guru.update');
+    Route::delete('guru/{id}', [GuruController::class, 'destroy'])->name('admin.guru.destroy');
+});
 
     // SISWA
-    Route::get('siswa', [SiswaController::class, 'index'])
-        ->name('admin.siswa');
+    // SISWA
+Route::get('siswa', [SiswaController::class, 'index'])->name('admin.siswa');
 
-    Route::get('siswa/create', [SiswaController::class, 'create'])
-        ->name('admin.siswa.create');
-
-    Route::post('siswa', [SiswaController::class, 'store'])
-        ->name('admin.siswa.store');
-
-    Route::get('siswa/{id}/edit', [SiswaController::class, 'edit'])
-        ->name('admin.siswa.edit');
-
-    Route::put('siswa/{id}', [SiswaController::class, 'update'])
-        ->name('admin.siswa.update');
-
-    Route::delete('siswa/{id}', [SiswaController::class, 'destroy'])
-        ->name('admin.siswa.destroy');
-
+Route::middleware('role.admin')->group(function () {
+    Route::get('siswa/create', [SiswaController::class, 'create'])->name('admin.siswa.create');
+    Route::post('siswa', [SiswaController::class, 'store'])->name('admin.siswa.store');
+    Route::get('siswa/{id}/edit', [SiswaController::class, 'edit'])->name('admin.siswa.edit');
+    Route::put('siswa/{id}', [SiswaController::class, 'update'])->name('admin.siswa.update');
+    Route::delete('siswa/{id}', [SiswaController::class, 'destroy'])->name('admin.siswa.destroy');
+});
 
     // PROFIL
     Route::get('profil', [ProfilController::class, 'index'])

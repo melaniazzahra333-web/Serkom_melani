@@ -20,12 +20,12 @@ class User extends Authenticatable
     protected $keyType = 'string';
 
     protected $fillable = [
-        'name',
-        'username',
-        'password',
-        'role',
+    'id_user',
+    'name',
+    'username',
+    'password',
+    'role',
     ];
-
     protected $hidden = [
         'password',
     ];

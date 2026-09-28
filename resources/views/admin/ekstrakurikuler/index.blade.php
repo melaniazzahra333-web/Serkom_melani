@@ -4,10 +4,14 @@
 
 <div class="container-fluid">
 
+    {{-- HEADER --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
 
         <div>
-            <h2 class="mb-1">Kelola Ekstrakurikuler</h2>
+            <h2 class="fw-bold mb-1" style="color:#244D73;">
+                <i class="fa-solid fa-people-group me-2"></i>
+                Data Ekstrakurikuler
+            </h2>
 
             <p class="text-muted mb-0">
                 Kelola data kegiatan ekstrakurikuler sekolah
@@ -15,7 +19,7 @@
         </div>
 
         <a href="{{ route('admin.ektrakurikuler.create') }}"
-           class="btn btn-primary">
+           class="btn btn-success">
 
             <i class="fa-solid fa-plus me-1"></i>
             Tambah Ekstrakurikuler
@@ -25,6 +29,7 @@
     </div>
 
 
+    {{-- NOTIFIKASI --}}
     @if(session('success'))
 
         <div class="alert alert-success">
@@ -34,17 +39,43 @@
     @endif
 
 
+    {{-- CARD --}}
     <div class="card border-0 shadow-sm">
 
-        <div class="card-body">
+        <div class="card-body p-0">
 
+            {{-- HEADER CARD --}}
+            <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+
+                <div>
+                    <h5 class="fw-bold mb-1" style="color:#244D73;">
+                        Daftar Ekstrakurikuler
+                    </h5>
+
+                    <small class="text-muted">
+                        Data kegiatan ekstrakurikuler yang tersedia
+                    </small>
+                </div>
+
+                <span class="badge rounded-pill"
+                      style="background:#C8DFDB;color:#3368A0;">
+
+                    {{ $ekstrakurikulers->count() }} Ekstrakurikuler
+
+                </span>
+
+            </div>
+
+
+            {{-- TABLE --}}
             <div class="table-responsive">
 
-                <table class="table table-hover align-middle">
+                <table class="table table-hover align-middle mb-0">
 
-                    <thead>
+                    <thead class="table-light">
 
                         <tr>
+
                             <th>No</th>
                             <th>Gambar</th>
                             <th>Nama Ekstrakurikuler</th>
@@ -52,6 +83,7 @@
                             <th>Jadwal Latihan</th>
                             <th>Deskripsi</th>
                             <th>Aksi</th>
+
                         </tr>
 
                     </thead>
@@ -59,12 +91,12 @@
 
                     <tbody>
 
-                        @forelse($ekstrakurikulers as $index => $ekstrakurikuler)
+                        @forelse($ekstrakurikulers as $ekstrakurikuler)
 
                         <tr>
 
                             <td>
-                                {{ $index + 1 }}
+                                {{ $loop->iteration }}
                             </td>
 
 
@@ -72,22 +104,25 @@
 
                                 @if($ekstrakurikuler->gambar)
 
-                                    <img src="{{ asset('storage/' . $ekstrakurikuler->gambar) }}"
-                                         width="90"
-                                         height="65"
-                                         class="rounded"
-                                         style="object-fit: cover;">
+                                    <img
+                                        src="{{ asset('storage/' . $ekstrakurikuler->gambar) }}"
+                                        width="70"
+                                        height="50"
+                                        class="rounded"
+                                        style="object-fit:cover;"
+                                        alt="Gambar Ekstrakurikuler"
+                                    >
 
                                 @else
 
-                                    -
+                                    <i class="fa-solid fa-image fs-4 text-secondary"></i>
 
                                 @endif
 
                             </td>
 
 
-                            <td>
+                            <td class="fw-semibold">
                                 {{ $ekstrakurikuler->nama_eskul }}
                             </td>
 
@@ -109,32 +144,39 @@
 
                             <td>
 
-                                <a href="{{ route('admin.ektrakurikuler.edit', $ekstrakurikuler->id_eskul) }}"
-                                   class="btn btn-warning btn-sm">
+                                <div class="d-flex gap-1">
 
-                                    <i class="fa-solid fa-pen"></i>
-                                    Edit
+                                    {{-- EDIT --}}
+                                    <a
+                                        href="{{ route('admin.ektrakurikuler.edit', $ekstrakurikuler->id_eskul) }}"
+                                        class="btn btn-sm btn-warning"
+                                        title="Edit"
+                                    >
+                                        <i class="fa-solid fa-pen"></i>
+                                    </a>
 
-                                </a>
 
+                                    {{-- HAPUS --}}
+                                    <form
+                                        action="{{ route('admin.ektrakurikuler.destroy', $ekstrakurikuler->id_eskul) }}"
+                                        method="POST"
+                                        onsubmit="return confirm('Yakin ingin menghapus data ini?')"
+                                    >
 
-                                <form action="{{ route('admin.ektrakurikuler.destroy', $ekstrakurikuler->id_eskul) }}"
-                                      method="POST"
-                                      class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
 
-                                    @csrf
-                                    @method('DELETE')
+                                        <button
+                                            type="submit"
+                                            class="btn btn-sm btn-danger"
+                                            title="Hapus"
+                                        >
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
 
-                                    <button type="submit"
-                                            class="btn btn-danger btn-sm"
-                                            onclick="return confirm('Yakin ingin menghapus data ini?')">
+                                    </form>
 
-                                        <i class="fa-solid fa-trash"></i>
-                                        Hapus
-
-                                    </button>
-
-                                </form>
+                                </div>
 
                             </td>
 
@@ -144,10 +186,16 @@
 
                         <tr>
 
-                            <td colspan="7"
-                                class="text-center py-4">
+                            <td
+                                colspan="7"
+                                class="text-center py-5"
+                            >
 
-                                Belum ada data ekstrakurikuler.
+                                <i class="fa-solid fa-people-group fs-1 text-secondary mb-3"></i>
+
+                                <p class="text-muted mb-0">
+                                    Belum ada data ekstrakurikuler.
+                                </p>
 
                             </td>
 
