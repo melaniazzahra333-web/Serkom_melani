@@ -32,18 +32,11 @@ class GaleriController extends Controller
 
         if ($request->kategori == 'Foto') {
 
-            $request->validate([
-                'file' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
-            ]);
-
+            $request->validate(['file' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',]);
             $file = $request->file('file')->store('galeri', 'public');
 
         } else {
-
-            $request->validate([
-                'file' => 'required|url',
-            ]);
-
+            $request->validate(['file' => 'required|url',]);
             $file = $request->file;
         }
 
@@ -55,9 +48,7 @@ class GaleriController extends Controller
             'tanggal' => $request->tanggal,
         ]);
 
-        return redirect()
-            ->route('admin.galeri')
-            ->with('success', 'Data galeri berhasil ditambahkan.');
+        return redirect()->route('admin.galeri')->with('success', 'Data galeri berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -89,19 +80,13 @@ class GaleriController extends Controller
 
             if ($request->hasFile('file')) {
 
-                $request->validate([
-                    'file' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
-                ]);
-
+                $request->validate(['file' => 'image|mimes:jpg,jpeg,png,webp|max:2048',]);
                 $data['file'] = $request->file('file')->store('galeri', 'public');
             }
 
         } else {
 
-            $request->validate([
-                'file' => 'nullable|url',
-            ]);
-
+            $request->validate(['file' => 'nullable|url',]);
             if ($request->filled('file')) {
                 $data['file'] = $request->file;
             }
@@ -109,9 +94,7 @@ class GaleriController extends Controller
 
         $galeri->update($data);
 
-        return redirect()
-            ->route('admin.galeri')
-            ->with('success', 'Data galeri berhasil diperbarui.');
+        return redirect()->route('admin.galeri')->with('success', 'Data galeri berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -120,8 +103,7 @@ class GaleriController extends Controller
 
         $galeri->delete();
 
-        return redirect()
-            ->route('admin.galeri')
-            ->with('success', 'Data galeri berhasil dihapus.');
+        return redirect()->route('admin.galeri')->with('success', 'Data galeri berhasil dihapus.');
+        
     }
 }

@@ -23,7 +23,7 @@
 
         <a
             href="{{ route('admin.pengumuman.create') }}"
-            class="btn btn-success px-3 py-2"
+            class="btn btn-primary px-3 py-2"
         >
 
             <i class="fa-solid fa-plus me-1"></i>
@@ -214,7 +214,7 @@
                                 <form
                                     action="{{ route('admin.pengumuman.destroy', ['id' => $item->id_pengumuman]) }}"
                                     method="POST"
-                                    onsubmit="return confirm('Yakin ingin menghapus pengumuman ini?')"
+                                    class="form-hapus"
                                 >
 
                                     @csrf

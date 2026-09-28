@@ -19,7 +19,7 @@
         </div>
 
         <a href="{{ route('admin.galeri.create') }}"
-           class="btn btn-success">
+           class="btn btn-primary">
 
             <i class="fa-solid fa-plus me-1"></i>
             Tambah Galeri
@@ -75,14 +75,13 @@
                     <thead class="table-light">
 
                         <tr>
-
                             <th>No</th>
-                            <th>Preview</th>
+                            <th>Foto</th>
                             <th>Judul</th>
+                            <th>Keterangan</th>
                             <th>Kategori</th>
                             <th>Tanggal</th>
                             <th>Aksi</th>
-
                         </tr>
 
                     </thead>
@@ -133,6 +132,13 @@
                             </td>
 
 
+                            {{-- KETERANGAN --}}
+                            <td>
+                                {{ $galeri->keterangan }}
+                            </td>
+
+
+                            {{-- KATEGORI --}}
                             <td>
 
                                 @if($galeri->kategori == 'Foto')
@@ -177,7 +183,7 @@
                                     <form
                                         action="{{ route('admin.galeri.destroy', $galeri->id_galeri) }}"
                                         method="POST"
-                                        onsubmit="return confirm('Yakin ingin menghapus data ini?')"
+                                        class="form-hapus"
                                     >
 
                                         @csrf
@@ -204,7 +210,7 @@
                         <tr>
 
                             <td
-                                colspan="6"
+                                colspan="7"
                                 class="text-center py-5"
                             >
 

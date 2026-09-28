@@ -32,10 +32,10 @@ class BeritaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'judul' => 'required|max:50',
+            'judul' => 'required|max:100',
             'isi' => 'required',
             'tanggal' => 'required|date',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
             'status' => 'required|in:Publish,Draft',
         ]);
 
@@ -46,7 +46,6 @@ class BeritaController extends Controller
         }
 
         $user = DB::table('user')->first();
-
         if (!$user) {
             return back()->with('error', 'Belum ada data user.');
         }
@@ -60,9 +59,7 @@ class BeritaController extends Controller
             'id_user' => $user->id_user,
         ]);
 
-        return redirect()
-            ->route('admin.berita')
-            ->with('success', 'Berita berhasil ditambahkan.');
+        return redirect()->route('admin.berita')->with('success', 'Berita berhasil ditambahkan.');
     }
 
     /**
@@ -83,10 +80,10 @@ class BeritaController extends Controller
         $berita = Berita::findOrFail($id);
 
         $request->validate([
-            'judul' => 'required|max:50',
+            'judul' => 'required|max:100',
             'isi' => 'required',
             'tanggal' => 'required|date',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
             'status' => 'required|in:Publish,Draft',
         ]);
 
@@ -105,9 +102,7 @@ class BeritaController extends Controller
             ]);
         }
 
-        return redirect()
-            ->route('admin.berita')
-            ->with('success', 'Berita berhasil diperbarui.');
+        return redirect()->route('admin.berita')->with('success', 'Berita berhasil diperbarui.');
     }
 
     /**
@@ -119,8 +114,6 @@ class BeritaController extends Controller
 
         $berita->delete();
 
-        return redirect()
-            ->route('admin.berita')
-            ->with('success', 'Berita berhasil dihapus.');
+        return redirect()->route('admin.berita')->with('success', 'Berita berhasil dihapus.');
     }
 }

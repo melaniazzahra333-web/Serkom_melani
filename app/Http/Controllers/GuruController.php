@@ -82,7 +82,7 @@ class GuruController extends Controller
     public function update(Request $request, string $id)
     {
         //
-         $guru = Guru::findOrFail($id);
+        $guru = Guru::findOrFail($id);
 
         $request->validate([
             'nama_guru' => 'required',

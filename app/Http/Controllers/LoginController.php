@@ -27,9 +27,7 @@ class LoginController extends Controller
         $user = User::where('username', $request->username)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return back()
-                ->withInput($request->only('username'))
-                ->with('error', 'Username atau password salah.');
+            return back()->withInput($request->only('username'))->with('error', 'Username atau password salah.');
         }
 
         $request->session()->regenerate();

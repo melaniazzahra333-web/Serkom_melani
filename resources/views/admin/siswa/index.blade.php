@@ -21,7 +21,7 @@
         {{-- TOMBOL TAMBAH HANYA UNTUK ADMIN --}}
         @if(session('user_role') === 'Admin')
             <a href="{{ route('admin.siswa.create') }}"
-               class="btn btn-success">
+               class="btn btn-primary">
 
                 <i class="fa-solid fa-plus me-1"></i>
                 Tambah Siswa
@@ -105,16 +105,19 @@
 
                             <td>
 
-                                @if($siswa->jenis_kelamin == 'Laki-laki')
+                                @if($siswa->jenis_kelamin == 'Laki-Laki')
 
-                                    <span class="badge bg-primary">
-                                        Laki-laki
+                                    <span class="badge"
+                                        style="background:#EEF5F4;color:#3368A0;">
+                                        <i class="fa-solid fa-mars me-1"></i>
+                                        Laki-Laki
                                     </span>
 
                                 @elseif($siswa->jenis_kelamin == 'Perempuan')
 
                                     <span class="badge"
                                           style="background:#D45060;color:white;">
+                                          <i class="fa-solid fa-venus me-1"></i>
                                         Perempuan
                                     </span>
 
@@ -150,23 +153,16 @@
 
 
                                         {{-- HAPUS --}}
-                                        <form
-                                            action="{{ route('admin.siswa.destroy', $siswa->id_siswa) }}"
-                                            method="POST"
-                                            onsubmit="return confirm('Yakin ingin menghapus data siswa ini?')"
-                                        >
+                                        <form action="{{ route('admin.siswa.destroy', $siswa->id_siswa) }}"
+                                                method="POST"
+                                                class="form-hapus">
+                                                @csrf
+                                                @method('DELETE')
 
-                                            @csrf
-                                            @method('DELETE')
-
-                                            <button
-                                                type="submit"
-                                                class="btn btn-sm btn-danger"
-                                                title="Hapus"
-                                            >
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-
+                                                <button type="submit"
+                                                        class="btn btn-sm btn-danger">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
                                         </form>
 
                                     </div>

@@ -52,11 +52,9 @@ class PengumumanController extends Controller
         ]);
 
 
-        return redirect()
-            ->route('admin.pengumuman')
-            ->with('success', 'Pengumuman berhasil ditambahkan.');
+        return redirect()->route('admin.pengumuman')->with('success', 'Pengumuman berhasil ditambahkan.');
     }
-
+    
 
     public function edit($id)
     {
@@ -72,7 +70,6 @@ class PengumumanController extends Controller
     public function update(Request $request, $id)
     {
         $pengumuman = Pengumuman::findOrFail($id);
-
 
         $request->validate([
             'judul' => 'required|string|max:50',
@@ -90,9 +87,7 @@ class PengumumanController extends Controller
         ]);
 
 
-        return redirect()
-            ->route('admin.pengumuman')
-            ->with('success', 'Pengumuman berhasil diperbarui.');
+        return redirect()->route('admin.pengumuman')->with('success', 'Pengumuman berhasil diperbarui.');
     }
 
 
@@ -103,8 +98,6 @@ class PengumumanController extends Controller
         $pengumuman->delete();
 
 
-        return redirect()
-            ->route('admin.pengumuman')
-            ->with('success', 'Pengumuman berhasil dihapus.');
+        return redirect()->route('admin.pengumuman')->with('success', 'Pengumuman berhasil dihapus.');
     }
 }

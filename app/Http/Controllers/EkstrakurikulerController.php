@@ -39,9 +39,7 @@ class EkstrakurikulerController extends Controller
             'gambar' => $gambar,
         ]);
 
-        return redirect()
-            ->route('admin.ektrakurikuler')
-            ->with('success', 'Ekstrakurikuler berhasil ditambahkan.');
+        return redirect()->route('admin.ektrakurikuler')->with('success', 'Ekstrakurikuler berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -76,9 +74,8 @@ class EkstrakurikulerController extends Controller
 
         $ekstrakurikuler->update($data);
 
-        return redirect()
-            ->route('admin.ektrakurikuler')
-            ->with('success', 'Ekstrakurikuler berhasil diperbarui.');
+        return redirect()->route('admin.ektrakurikuler')->with('success', 'Ekstrakurikuler berhasil diperbarui.');
+
     }
 
     public function destroy($id)
@@ -87,8 +84,7 @@ class EkstrakurikulerController extends Controller
 
         $ekstrakurikuler->delete();
 
-        return redirect()
-            ->route('admin.ektrakurikuler')
-            ->with('success', 'Ekstrakurikuler berhasil dihapus.');
+        return redirect()->route('admin.ektrakurikuler')->with('success', 'Ekstrakurikuler berhasil dihapus.');
+        
     }
 }

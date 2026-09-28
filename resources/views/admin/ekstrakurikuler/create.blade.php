@@ -13,14 +13,6 @@
             </p>
         </div>
 
-        <a href="{{ route('admin.ektrakurikuler') }}"
-           class="btn btn-secondary">
-
-            <i class="fa-solid fa-arrow-left me-1"></i>
-            Kembali
-
-        </a>
-
     </div>
 
 
@@ -153,14 +145,7 @@
                 </div>
 
 
-                <div class="d-flex justify-content-end gap-2">
-
-                    <a href="{{ route('admin.ektrakurikuler') }}"
-                       class="btn btn-secondary">
-
-                        Batal
-
-                    </a>
+                <div class="d-flex gap-2">
 
                     <button type="submit"
                             class="btn btn-primary">
@@ -169,6 +154,13 @@
                         Simpan
 
                     </button>
+
+                    <a href="{{ route('admin.ektrakurikuler') }}"
+                       class="btn btn-secondary">
+
+                        Batal
+
+                    </a>
 
                 </div>
 

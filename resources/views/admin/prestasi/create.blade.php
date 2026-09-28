@@ -10,10 +10,7 @@
             <p class="text-muted mb-0">Tambahkan data prestasi sekolah</p>
         </div>
 
-        <a href="{{ route('admin.prestasi') }}" class="btn btn-secondary">
-            <i class="fas fa-arrow-left me-1"></i>
-            Kembali
-        </a>
+
     </div>
 
     <div class="card border-0 shadow-sm">
@@ -81,6 +78,11 @@
                     <i class="fas fa-save me-1"></i>
                     Simpan
                 </button>
+
+                 <a href="{{ route('admin.prestasi') }}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left me-1"></i>
+                        Kembali
+                    </a>
 
             </form>
 

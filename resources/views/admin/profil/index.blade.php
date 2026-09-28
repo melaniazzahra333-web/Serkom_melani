@@ -18,13 +18,17 @@
             </p>
         </div>
 
-        <a href="{{ route('admin.profil.create') }}"
-           class="btn btn-success">
+        @if(!$profil)
 
-            <i class="fa-solid fa-plus me-1"></i>
-            Tambah Profil
+            <a href="{{ route('admin.profil.create') }}"
+               class="btn btn-primary">
 
-        </a>
+                <i class="fa-solid fa-plus me-1"></i>
+                Tambah Profil
+
+            </a>
+
+        @endif
 
     </div>
 
@@ -40,7 +44,7 @@
 
 
     {{-- DATA PROFIL --}}
-    @forelse($profils as $profil)
+    @if($profil)
 
     <div class="card border-0 shadow-sm">
 
@@ -252,29 +256,6 @@
 
                             </a>
 
-
-                            <form
-                                action="{{ route('admin.profil.destroy', $profil->id_profil) }}"
-                                method="POST"
-                                style="display:inline;"
-                            >
-
-                                @csrf
-                                @method('DELETE')
-
-                                <button
-                                    type="submit"
-                                    class="btn btn-danger"
-                                    onclick="return confirm('Yakin ingin menghapus profil ini?')"
-                                >
-
-                                    <i class="fa-solid fa-trash me-1"></i>
-                                    Hapus
-
-                                </button>
-
-                            </form>
-
                         </div>
 
                     </div>
@@ -287,7 +268,7 @@
 
     </div>
 
-    @empty
+    @else
 
         {{-- EMPTY STATE --}}
         <div class="card border-0 shadow-sm">
@@ -305,7 +286,7 @@
                 </p>
 
                 <a href="{{ route('admin.profil.create') }}"
-                   class="btn btn-success">
+                   class="btn btn-primary">
 
                     <i class="fa-solid fa-plus me-1"></i>
                     Tambah Profil
@@ -316,7 +297,7 @@
 
         </div>
 
-    @endforelse
+    @endif
 
 </div>
 

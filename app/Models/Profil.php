@@ -13,13 +13,13 @@ class Profil extends Model
     protected $fillable = [
         'nama_sekolah',
         'kepala_sekolah',
-        'foto',
-        'logo',
         'npsn',
         'alamat',
         'kontak',
         'visi_misi',
         'tahun_berdiri',
         'deskripsi',
+        'foto',
+        'logo',
     ];
 }

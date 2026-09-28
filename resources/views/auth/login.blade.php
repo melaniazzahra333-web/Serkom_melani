@@ -46,7 +46,7 @@
 
                 <i class="bi bi-asterisk"></i>
 
-                <span>SMKS YPC Tasikmalaya</span>
+                <span>SMAN Cendikia</span>
 
             </a>
 

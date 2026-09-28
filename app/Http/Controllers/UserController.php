@@ -38,9 +38,7 @@ class UserController extends Controller
             'role' => $request->role,
         ]);
 
-        return redirect()
-            ->route('admin.user')
-            ->with('success', 'User berhasil ditambahkan.');
+        return redirect()->route('admin.user')->with('success', 'User berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -53,7 +51,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
-
+        
         $request->validate([
             'name' => 'required',
             'username' => 'required|max:30|unique:user,username,' . $id . ',id_user',
@@ -72,20 +70,13 @@ class UserController extends Controller
         }
 
         $user->update($data);
-
-        return redirect()
-            ->route('admin.user')
-            ->with('success', 'User berhasil diperbarui.');
+        return redirect()->route('admin.user')->with('success', 'User berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
         $user = User::findOrFail($id);
-
         $user->delete();
-
-        return redirect()
-            ->route('admin.user')
-            ->with('success', 'User berhasil dihapus.');
+        return redirect()->route('admin.user')->with('success', 'User berhasil dihapus.');
     }
 }

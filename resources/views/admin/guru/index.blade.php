@@ -21,7 +21,7 @@
         {{-- TOMBOL TAMBAH HANYA UNTUK ADMIN --}}
         @if(session('user_role') === 'Admin')
             <a href="{{ route('admin.guru.create') }}"
-               class="btn btn-success">
+               class="btn btn-primary">
 
                 <i class="fa-solid fa-plus me-1"></i>
                 Tambah Guru
@@ -163,7 +163,7 @@
                                         <form
                                             action="{{ route('admin.guru.destroy', ['id' => $guru->id_guru]) }}"
                                             method="POST"
-                                            onsubmit="return confirm('Yakin ingin menghapus data guru ini?')"
+                                            class="form-hapus"
                                         >
 
                                             @csrf

@@ -19,7 +19,7 @@
         </div>
 
         <a href="{{ route('admin.berita.create') }}"
-           class="btn btn-success px-3 py-2">
+           class="btn btn-primary px-3 py-2">
 
             <i class="fa-solid fa-plus me-1"></i>
             Tambah Berita
@@ -199,7 +199,7 @@
                                 <form
                                     action="{{ route('admin.berita.destroy', ['id' => $berita->id_berita]) }}"
                                     method="POST"
-                                    onsubmit="return confirm('Yakin ingin menghapus berita ini?')"
+                                    class="form-hapus"
                                 >
 
                                     @csrf

@@ -9,47 +9,55 @@ class ProfilController extends Controller
 {
     public function index()
     {
-        $profils = Profil::all();
+        $profil = Profil::first();
 
-        return view('admin.profil.index', compact('profils'));
+        return view('admin.profil.index', compact('profil'));
     }
 
     public function create()
     {
+        // Jika profil sudah ada, langsung ke halaman edit
+        $profil = Profil::first();
+
+        if ($profil) {
+            return redirect()->route('admin.profil.edit', $profil->id_profil);
+        }
+
         return view('admin.profil.create');
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_sekolah' => 'required|max:255',
-            'kepala_sekolah' => 'required|max:255',
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'logo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'npsn' => 'nullable|max:50',
-            'alamat' => 'nullable',
-            'kontak' => 'nullable|max:100',
-            'visi_misi' => 'nullable',
-            'tahun_berdiri' => 'nullable|max:10',
-            'deskripsi' => 'nullable',
+        $data = $request->validate([
+            'nama_sekolah' => 'required|string|max:40',
+            'kepala_sekolah' => 'required|string|max:40',
+            'npsn' => 'required|string|max:10',
+            'alamat' => 'required|string',
+            'kontak' => 'required|string|max:15',
+            'visi_misi' => 'required|string',
+            'tahun_berdiri' => 'required|integer|digits:4',
+            'deskripsi' => 'required|string',
+
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'logo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
 
-        $data = [
-            'nama_sekolah' => $request->nama_sekolah,
-            'kepala_sekolah' => $request->kepala_sekolah,
-            'npsn' => $request->npsn,
-            'alamat' => $request->alamat,
-            'kontak' => $request->kontak,
-            'visi_misi' => $request->visi_misi,
-            'tahun_berdiri' => $request->tahun_berdiri,
-            'deskripsi' => $request->deskripsi,
-        ];
+        // Cegah membuat profil kedua
+        $profil = Profil::first();
 
+        if ($profil) {
+            return redirect()
+                ->route('admin.profil.edit', $profil->id_profil)
+                ->with('success', 'Profil sekolah sudah tersedia. Silakan edit profil yang ada.');
+        }
+
+        // FOTO
         if ($request->hasFile('foto')) {
             $data['foto'] = $request->file('foto')
                 ->store('profil', 'public');
         }
 
+        // LOGO
         if ($request->hasFile('logo')) {
             $data['logo'] = $request->file('logo')
                 ->store('profil', 'public');
@@ -73,51 +81,40 @@ class ProfilController extends Controller
     {
         $profil = Profil::findOrFail($id);
 
-    $data = $request->validate([
-        'nama_sekolah' => 'required|string|max:40',
-        'kepala_sekolah' => 'required|string|max:40',
-        'npsn' => 'required|string|max:10',
-        'alamat' => 'required|string',
-        'kontak' => 'required|string|max:15',
-        'visi_misi' => 'required|string',
-        'tahun_berdiri' => 'required|integer|digits:4',
-        'deskripsi' => 'required|string',
+        $data = $request->validate([
+            'nama_sekolah' => 'required|string|max:40',
+            'kepala_sekolah' => 'required|string|max:40',
+            'npsn' => 'required|string|max:10',
+            'alamat' => 'required|string',
+            'kontak' => 'required|string|max:15',
+            'visi_misi' => 'required|string',
+            'tahun_berdiri' => 'required|integer|digits:4',
+            'deskripsi' => 'required|string',
 
-        'foto' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-        'logo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-    ]);
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'logo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+        ]);
 
-    // FOTO
-    if ($request->hasFile('foto')) {
-        $data['foto'] = $request->file('foto')
-            ->store('profil', 'public');
-    } else {
-        $data['foto'] = $profil->foto;
-    }
+        // FOTO
+        if ($request->hasFile('foto')) {
+            $data['foto'] = $request->file('foto')
+                ->store('profil', 'public');
+        } else {
+            $data['foto'] = $profil->foto;
+        }
 
-    // LOGO
-    if ($request->hasFile('logo')) {
-        $data['logo'] = $request->file('logo')
-            ->store('profil', 'public');
-    } else {
-        $data['logo'] = $profil->logo;
-    }
+        // LOGO
+        if ($request->hasFile('logo')) {
+            $data['logo'] = $request->file('logo')
+                ->store('profil', 'public');
+        } else {
+            $data['logo'] = $profil->logo;
+        }
 
-    $profil->update($data);
-
-    return redirect()
-        ->route('admin.profil')
-        ->with('success', 'Profil sekolah berhasil diperbarui.');
-    }
-
-    public function destroy($id)
-    {
-        $profil = Profil::findOrFail($id);
-
-        $profil->delete();
+        $profil->update($data);
 
         return redirect()
             ->route('admin.profil')
-            ->with('success', 'Profil sekolah berhasil dihapus.');
+            ->with('success', 'Profil sekolah berhasil diperbarui.');
     }
 }

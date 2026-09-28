@@ -10,6 +10,7 @@
     <meta name="description" content="Sistem Informasi Sekolah SMKS YPC TASIKMALAYA">
 
     <link rel="icon" type="image/png" href="{{ asset('assets/images/favicon.ico') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link rel="stylesheet" href="{{ asset('assets/libs/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/libs/bootstrap-icons/bootstrap-icons.css') }}">
@@ -331,18 +332,17 @@
 
 
                         {{-- USER --}}
-                        <li class="sidebar-menu-item">
+                        @if(session('user_role') === 'Admin')
+                            <li class="sidebar-menu-item">
 
-                            <a href="{{ route('admin.user') }}"
-                               class="sidebar-menu-link {{ request()->routeIs('admin.user*') ? 'active' : '' }}">
+                                <a href="{{ route('admin.user') }}"
+                                   class="sidebar-menu-link {{ request()->routeIs('admin.user*') ? 'active' : '' }}">
+                                    <i class="fa-solid fa-user"></i>
+                                    <span>Kelola User</span>
 
-                                <i class="fa-solid fa-user-gear"></i>
-
-                                <span>User</span>
-
-                            </a>
-
-                        </li>
+                                </a>
+                            </li>
+                        @endif
 
                     </ul>
 
@@ -351,6 +351,7 @@
             </div>
 
         </div>
+
         <!-- END SIDEBAR MENU -->
 
 
@@ -598,15 +599,12 @@
     </div>
     <!-- END MAIN WRAPPER -->
 
-
     <!-- JAVASCRIPT -->
     <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
     <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
-
     <script src="{{ asset('assets/libs/flatpickr/flatpickr.min.js') }}"></script>
-
     <script src="{{ asset('assets/js/dashboard.js') }}"></script>
+    <script src="{{ asset('assets/js/admin-delete.js') }}"></script>
 
 </body>
 

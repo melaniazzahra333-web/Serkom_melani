@@ -19,7 +19,7 @@
         </div>
 
         <a href="{{ route('admin.ektrakurikuler.create') }}"
-           class="btn btn-success">
+           class="btn btn-primary">
 
             <i class="fa-solid fa-plus me-1"></i>
             Tambah Ekstrakurikuler
@@ -160,7 +160,7 @@
                                     <form
                                         action="{{ route('admin.ektrakurikuler.destroy', $ekstrakurikuler->id_eskul) }}"
                                         method="POST"
-                                        onsubmit="return confirm('Yakin ingin menghapus data ini?')"
+                                        class="form-hapus"
                                     >
 
                                         @csrf

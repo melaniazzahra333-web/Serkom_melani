@@ -4,30 +4,29 @@
 
 <div class="container-fluid">
 
-    <!-- HEADER -->
+    {{-- HEADER --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
 
         <div>
-            <h2>Edit Profil Sekolah</h2>
+            <h2 class="fw-bold mb-1" style="color:#244D73;">
+                <i class="fa-solid fa-school me-2"></i>
+                Edit Profil Sekolah
+            </h2>
 
             <p class="text-muted mb-0">
                 Ubah informasi profil sekolah
             </p>
         </div>
 
-        <a href="{{ route('admin.profil') }}" class="btn btn-secondary">
-            Kembali
-        </a>
-
     </div>
 
 
-    <!-- CARD -->
+    {{-- CARD --}}
     <div class="card border-0 shadow-sm">
 
         <div class="card-body p-4">
 
-            <!-- ERROR VALIDATION -->
+            {{-- ERROR VALIDATION --}}
             @if ($errors->any())
 
                 <div class="alert alert-danger">
@@ -51,7 +50,7 @@
             @endif
 
 
-            <!-- SUCCESS -->
+            {{-- SUCCESS --}}
             @if (session('success'))
 
                 <div class="alert alert-success">
@@ -61,7 +60,7 @@
             @endif
 
 
-            <!-- FORM -->
+            {{-- FORM --}}
             <form
                 action="{{ route('admin.profil.update', $profil->id_profil) }}"
                 method="POST"
@@ -69,14 +68,12 @@
             >
 
                 @csrf
-
                 @method('PUT')
 
 
                 <div class="row">
 
-
-                    <!-- NAMA SEKOLAH -->
+                    {{-- NAMA SEKOLAH --}}
                     <div class="col-md-6 mb-3">
 
                         <label class="form-label">
@@ -102,7 +99,7 @@
                     </div>
 
 
-                    <!-- KEPALA SEKOLAH -->
+                    {{-- KEPALA SEKOLAH --}}
                     <div class="col-md-6 mb-3">
 
                         <label class="form-label">
@@ -128,7 +125,7 @@
                     </div>
 
 
-                    <!-- NPSN -->
+                    {{-- NPSN --}}
                     <div class="col-md-6 mb-3">
 
                         <label class="form-label">
@@ -154,7 +151,7 @@
                     </div>
 
 
-                    <!-- TAHUN BERDIRI -->
+                    {{-- TAHUN BERDIRI --}}
                     <div class="col-md-6 mb-3">
 
                         <label class="form-label">
@@ -180,7 +177,7 @@
                     </div>
 
 
-                    <!-- ALAMAT -->
+                    {{-- ALAMAT --}}
                     <div class="col-md-12 mb-3">
 
                         <label class="form-label">
@@ -205,7 +202,7 @@
                     </div>
 
 
-                    <!-- KONTAK -->
+                    {{-- KONTAK --}}
                     <div class="col-md-12 mb-3">
 
                         <label class="form-label">
@@ -231,7 +228,7 @@
                     </div>
 
 
-                    <!-- VISI MISI -->
+                    {{-- VISI MISI --}}
                     <div class="col-md-12 mb-3">
 
                         <label class="form-label">
@@ -256,7 +253,7 @@
                     </div>
 
 
-                    <!-- DESKRIPSI -->
+                    {{-- DESKRIPSI --}}
                     <div class="col-md-12 mb-3">
 
                         <label class="form-label">
@@ -281,13 +278,12 @@
                     </div>
 
 
-                    <!-- FOTO SEKOLAH -->
+                    {{-- FOTO SEKOLAH --}}
                     <div class="col-md-6 mb-3">
 
                         <label class="form-label">
                             Foto Sekolah
                         </label>
-
 
                         @if($profil->foto)
 
@@ -306,7 +302,6 @@
 
                         @endif
 
-
                         <input
                             type="file"
                             name="foto"
@@ -322,7 +317,6 @@
 
                         @enderror
 
-
                         <small class="text-muted">
                             Kosongkan jika tidak ingin mengganti foto.
                         </small>
@@ -330,13 +324,12 @@
                     </div>
 
 
-                    <!-- LOGO SEKOLAH -->
+                    {{-- LOGO SEKOLAH --}}
                     <div class="col-md-6 mb-3">
 
                         <label class="form-label">
                             Logo Sekolah
                         </label>
-
 
                         @if($profil->logo)
 
@@ -355,7 +348,6 @@
 
                         @endif
 
-
                         <input
                             type="file"
                             name="logo"
@@ -371,7 +363,6 @@
 
                         @enderror
 
-
                         <small class="text-muted">
                             Kosongkan jika tidak ingin mengganti logo.
                         </small>
@@ -381,16 +372,8 @@
                 </div>
 
 
-                <!-- BUTTON -->
-                <div class="text-end mt-3">
-
-                    <a
-                        href="{{ route('admin.profil') }}"
-                        class="btn btn-secondary"
-                    >
-                        Batal
-                    </a>
-
+                {{-- BUTTON --}}
+                <div class="d-flex gap-2 mt-3">
 
                     <button
                         type="submit"
@@ -402,6 +385,13 @@
                         Simpan Perubahan
 
                     </button>
+
+                    <a
+                        href="{{ route('admin.profil') }}"
+                        class="btn btn-secondary"
+                    >
+                        Kembali
+                    </a>
 
                 </div>
 

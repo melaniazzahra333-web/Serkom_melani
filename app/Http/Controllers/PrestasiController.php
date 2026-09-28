@@ -34,9 +34,7 @@ class PrestasiController extends Controller
 
         Prestasi::create($data);
 
-        return redirect()
-            ->route('admin.prestasi')
-            ->with('success', 'Data prestasi berhasil ditambahkan.');
+        return redirect()->route('admin.prestasi')->with('success', 'Data prestasi berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -67,9 +65,7 @@ class PrestasiController extends Controller
 
         $prestasi->update($data);
 
-        return redirect()
-            ->route('admin.prestasi')
-            ->with('success', 'Data prestasi berhasil diperbarui.');
+        return redirect()->route('admin.prestasi')->with('success', 'Data prestasi berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -82,8 +78,6 @@ class PrestasiController extends Controller
 
         $prestasi->delete();
 
-        return redirect()
-            ->route('admin.prestasi')
-            ->with('success', 'Data prestasi berhasil dihapus.');
+        return redirect()->route('admin.prestasi')->with('success', 'Data prestasi berhasil dihapus.');
     }
 }

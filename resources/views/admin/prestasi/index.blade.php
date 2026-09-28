@@ -17,7 +17,7 @@
             </p>
         </div>
 
-        <a href="{{ route('admin.prestasi.create') }}" class="btn btn-success px-4">
+        <a href="{{ route('admin.prestasi.create') }}" class="btn btn-primary px-4">
             <i class="fas fa-plus me-2"></i>
             Tambah Prestasi
         </a>
@@ -197,7 +197,7 @@
                                         <form
                                             action="{{ route('admin.prestasi.destroy', $prestasi->id_prestasi) }}"
                                             method="POST"
-                                            onsubmit="return confirm('Yakin ingin menghapus data prestasi ini?')"
+                                            class="form-hapus"
                                         >
 
                                             @csrf
