@@ -6,7 +6,9 @@
 
     {{-- HEADER --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
+
         <div>
+
             <h2 class="fw-bold mb-1">
                 <i class="fas fa-medal me-2"></i>
                 Data Prestasi
@@ -15,12 +17,17 @@
             <p class="text-muted mb-0">
                 Kelola data prestasi dan pencapaian sekolah
             </p>
+
         </div>
 
-        <a href="{{ route('admin.prestasi.create') }}" class="btn btn-primary px-4">
+        <a href="{{ route('admin.prestasi.create') }}"
+           class="btn btn-primary px-4">
+
             <i class="fas fa-plus me-2"></i>
             Tambah Prestasi
+
         </a>
+
     </div>
 
 
@@ -29,26 +36,55 @@
 
         <div class="card-body p-4">
 
-            {{-- JUDUL CARD --}}
-            <div class="d-flex align-items-center mb-4">
 
-                <div>
-                    <h4 class="fw-bold mb-1">
-                        Daftar Prestasi
-                    </h4>
+            {{-- SEARCH + JUMLAH PRESTASI --}}
+            <div class="d-flex align-items-center gap-2 mb-4 w-100">
 
-                    <p class="text-muted mb-0">
-                        Prestasi yang dimiliki sekolah
-                    </p>
-                </div>
+                <form action="{{ route('admin.prestasi') }}"
+                      method="GET"
+                      class="d-flex flex-grow-1">
 
-                <span class="badge rounded-pill ms-3"
+                    <div class="input-group w-100">
+
+                        <span class="input-group-text bg-white">
+                            <i class="fa-solid fa-magnifying-glass text-muted"></i>
+                        </span>
+
+                        <input
+                            type="text"
+                            name="search"
+                            class="form-control"
+                            placeholder="Cari prestasi..."
+                            value="{{ $search ?? '' }}"
+                        >
+
+                    </div>
+
+
+                    @if(!empty($search))
+
+                        <a href="{{ route('admin.prestasi') }}"
+                           class="btn btn-secondary ms-2">
+
+                            Reset
+
+                        </a>
+
+                    @endif
+
+                </form>
+
+
+                {{-- JUMLAH PRESTASI --}}
+                <span class="badge rounded-pill flex-shrink-0"
                       style="
-                        background-color: #d8ece8;
-                        color: #2474a6;
-                        padding: 8px 16px;
+                          background-color: #d8ece8;
+                          color: #2474a6;
+                          padding: 8px 16px;
                       ">
+
                     {{ $prestasis->count() }} Prestasi
+
                 </span>
 
             </div>
@@ -57,7 +93,8 @@
             {{-- PESAN SUKSES --}}
             @if(session('success'))
 
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <div class="alert alert-success alert-dismissible fade show"
+                     role="alert">
 
                     <i class="fas fa-check-circle me-2"></i>
 
@@ -150,7 +187,9 @@
                                                 font-size: 13px;
                                             "
                                         >
+
                                             Tidak ada foto
+
                                         </div>
 
                                     @endif
@@ -162,7 +201,9 @@
                                 <td>
 
                                     <div style="max-width: 500px;">
+
                                         {{ $prestasi->deskripsi }}
+
                                     </div>
 
                                 </td>
@@ -221,6 +262,7 @@
                                 </td>
 
                             </tr>
+
 
                         @empty
 

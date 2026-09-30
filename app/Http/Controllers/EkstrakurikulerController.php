@@ -7,11 +7,26 @@ use Illuminate\Http\Request;
 
 class EkstrakurikulerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $ekstrakurikulers = Ekstrakurikuler::latest()->get();
+        // $ekstrakurikulers = Ekstrakurikuler::latest()->get();
 
-        return view('admin.ekstrakurikuler.index', compact('ekstrakurikulers'));
+        // return view('admin.ekstrakurikuler.index', compact('ekstrakurikulers'));
+
+    $search = $request->search;
+
+    $ekstrakurikulers = Ekstrakurikuler::query()
+        ->when($search, function ($query) use ($search) {
+            $query->where('nama_eskul', 'like', '%' . $search . '%')
+                  ->orWhere('pembina', 'like', '%' . $search . '%')
+                  ->orWhere('jadwal_latihan', 'like', '%' . $search . '%')
+                  ->orWhere('deskripsi', 'like', '%' . $search . '%');
+        })
+        ->get();
+
+        return view('admin.ekstrakurikuler.index', compact('ekstrakurikulers','search'
+        ));
+
     }
 
     public function create()
@@ -85,6 +100,6 @@ class EkstrakurikulerController extends Controller
         $ekstrakurikuler->delete();
 
         return redirect()->route('admin.ektrakurikuler')->with('success', 'Ekstrakurikuler berhasil dihapus.');
-        
+
     }
 }

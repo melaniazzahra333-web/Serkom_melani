@@ -26,11 +26,11 @@
                     </span>
 
                     <h2>
-                        Selamat Datang 👋
+                        Selamat Datang di Website Sekolah
                     </h2>
 
                     <p>
-                        Kelola data sekolah dengan mudah melalui sistem administrasi sekolah.
+                        Kelola data sekolah dengan mudah melalui sistem website sekolah.
                     </p>
 
                     <a href="{{ route('admin.profil') }}" class="welcome-button">
@@ -47,9 +47,8 @@
 
 
         <div class="col-xl-6 col-lg-12">
-
             <div class="row g-4">
-
+                
                 <div class="col-md-6">
                     <div class="school-stat-card">
 
@@ -68,7 +67,6 @@
                     </div>
                 </div>
 
-
                 <div class="col-md-6">
                     <div class="school-stat-card">
 
@@ -86,7 +84,6 @@
 
                     </div>
                 </div>
-
 
                 <div class="col-md-6">
                     <div class="school-stat-card">

@@ -11,11 +11,30 @@ class BeritaController extends Controller
     /**
      * Menampilkan semua berita
      */
-    public function index()
+    public function index(Request $request)
     {
-        $beritas = Berita::latest()->get();
+        $search = $request->search;
+        $status = $request->status;
 
-        return view('admin.berita.index', compact('beritas'));
+        $beritas = Berita::query()
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('judul', 'like', '%' . $search . '%')
+                    ->orWhere('isi', 'like', '%' . $search . '%')
+                    ->orWhere('tanggal', 'like', '%' . $search . '%');
+                });
+            })
+            ->when($status, function ($query) use ($status) {
+                $query->where('status', $status);
+            })
+            ->latest()
+            ->get();
+
+        return view('admin.berita.index', compact(
+            'beritas',
+            'search',
+            'status'
+        ));
     }
 
     /**

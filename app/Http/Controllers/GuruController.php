@@ -8,11 +8,24 @@ class GuruController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $gurus = Guru::all();
+        // $gurus = Guru::all();
 
-        return view('admin.guru.index', compact('gurus'));
+        // return view('admin.guru.index', compact('gurus'));
+
+        $search = $request->search;
+
+        $gurus = Guru::query()
+            ->when($search, function ($query) use ($search) {
+                $query->where('nama_guru', 'like', '%' . $search . '%')
+                    ->orWhere('nip', 'like', '%' . $search . '%')
+                    ->orWhere('jabatan', 'like', '%' . $search . '%')
+                    ->orWhere('mapel', 'like', '%' . $search . '%');
+            })
+            ->get();
+
+        return view('admin.guru.index', compact('gurus', 'search'));
     }
 
     /**

@@ -29,31 +29,148 @@
     </div>
 
 
+    {{-- NOTIFIKASI SUCCESS --}}
+    @if(session('success'))
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+
+            <i class="fa-solid fa-circle-check me-2"></i>
+
+            {{ session('success') }}
+
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+            </button>
+
+        </div>
+
+    @endif
+
+
+    {{-- NOTIFIKASI ERROR --}}
+    @if(session('error'))
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+
+            <i class="fa-solid fa-circle-exclamation me-2"></i>
+
+            {{ session('error') }}
+
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+            </button>
+
+        </div>
+
+    @endif
+
+
     {{-- CARD --}}
     <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+
 
         {{-- CARD HEADER --}}
         <div class="card-header bg-white border-0 px-4 py-3">
 
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-2 w-100">
 
-                <div>
+                {{-- FORM SEARCH --}}
+                <form
+                    action="{{ route('admin.berita') }}"
+                    method="GET"
+                    class="d-flex flex-grow-1 gap-2"
+                >
 
-                    <h5 class="fw-bold mb-1" style="color:#244D73;">
-                        Daftar Berita
-                    </h5>
 
-                    <small class="text-muted">
-                        Berita yang tersedia di website sekolah
-                    </small>
+                    {{-- SEARCH --}}
+                    <div class="input-group flex-grow-1">
 
-                </div>
+                        <span class="input-group-text bg-white">
 
+                            <i class="fa-solid fa-magnifying-glass text-muted"></i>
+
+                        </span>
+
+                        <input
+                            type="text"
+                            name="search"
+                            class="form-control"
+                            placeholder="Cari berita..."
+                            value="{{ $search ?? '' }}"
+                        >
+
+                    </div>
+
+
+                    {{-- FILTER STATUS --}}
+                    <select
+                        name="status"
+                        class="form-select"
+                        style="width:180px;"
+                    >
+
+                        <option value="">
+                            Semua Status
+                        </option>
+
+                        <option
+                            value="Publish"
+                            {{ ($status ?? '') == 'Publish' ? 'selected' : '' }}
+                        >
+                            Publish
+                        </option>
+
+                        <option
+                            value="Draft"
+                            {{ ($status ?? '') == 'Draft' ? 'selected' : '' }}
+                        >
+                            Draft
+                        </option>
+
+                    </select>
+
+
+                    {{-- TOMBOL CARI --}}
+                    <button
+                        type="submit"
+                        class="btn btn-primary px-4"
+                    >
+
+                        <i class="fa-solid fa-magnifying-glass me-1"></i>
+
+                        Cari
+
+                    </button>
+
+
+                    {{-- TOMBOL RESET --}}
+                    @if(!empty($search) || !empty($status))
+
+                        <a
+                            href="{{ route('admin.berita') }}"
+                            class="btn btn-secondary"
+                        >
+                            Reset
+                        </a>
+
+                    @endif
+
+
+                </form>
+
+
+                {{-- JUMLAH BERITA --}}
                 <span
-                    class="badge rounded-pill px-3 py-2"
+                    class="badge rounded-pill flex-shrink-0 px-3 py-2"
                     style="background:#C8DFDB;color:#3368A0;"
                 >
+
                     {{ $beritas->count() }} Berita
+
                 </span>
 
             </div>
@@ -105,9 +222,12 @@
 
                     <tr>
 
+
                         {{-- NO --}}
                         <td class="px-4">
+
                             {{ $loop->iteration }}
+
                         </td>
 
 
@@ -118,7 +238,9 @@
                                 class="fw-semibold"
                                 style="color:#244D73;"
                             >
+
                                 {{ $berita->judul }}
+
                             </div>
 
                         </td>
@@ -131,10 +253,12 @@
                                 class="text-muted"
                                 style="max-width:350px;"
                             >
+
                                 {{ \Illuminate\Support\Str::limit(
                                     strip_tags($berita->isi),
                                     70
                                 ) }}
+
                             </div>
 
                         </td>
@@ -157,18 +281,24 @@
 
                             @if($berita->status == 'Publish')
 
-                                <span class="badge bg-success rounded-pill px-3 py-2">
+                                <span
+                                    class="badge bg-success rounded-pill px-3 py-2"
+                                >
 
                                     <i class="fa-solid fa-circle-check me-1"></i>
+
                                     Publish
 
                                 </span>
 
                             @else
 
-                                <span class="badge bg-secondary rounded-pill px-3 py-2">
+                                <span
+                                    class="badge bg-secondary rounded-pill px-3 py-2"
+                                >
 
                                     <i class="fa-solid fa-file me-1"></i>
+
                                     Draft
 
                                 </span>
@@ -182,6 +312,7 @@
                         <td>
 
                             <div class="d-flex gap-2">
+
 
                                 {{-- EDIT --}}
                                 <a
@@ -203,6 +334,7 @@
                                 >
 
                                     @csrf
+
                                     @method('DELETE')
 
                                     <button
@@ -216,6 +348,7 @@
                                     </button>
 
                                 </form>
+
 
                             </div>
 
@@ -241,15 +374,37 @@
 
                                 </div>
 
+
                                 <h6
                                     class="fw-bold"
                                     style="color:#244D73;"
                                 >
-                                    Belum ada berita
+
+                                    @if(!empty($search) || !empty($status))
+
+                                        Data berita tidak ditemukan
+
+                                    @else
+
+                                        Belum ada berita
+
+                                    @endif
+
                                 </h6>
 
+
                                 <p class="text-muted small mb-0">
-                                    Belum ada berita yang ditambahkan.
+
+                                    @if(!empty($search) || !empty($status))
+
+                                        Coba ubah kata pencarian atau status.
+
+                                    @else
+
+                                        Belum ada berita yang ditambahkan.
+
+                                    @endif
+
                                 </p>
 
                             </div>
@@ -265,6 +420,7 @@
             </table>
 
         </div>
+
 
     </div>
 

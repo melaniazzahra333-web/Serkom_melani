@@ -3281,3 +3281,213 @@ body {
     background: rgba(255,255,255,.1);
     color: #fff;
 }
+
+/* Tombol Lihat Website */
+.sidebar-website-only {
+    padding: 14px 20px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.sidebar-website-link {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    padding: 6px 0 !important;
+    background: transparent !important;
+    border: none !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}
+
+.sidebar-website-link i {
+    font-size: 12px !important;
+}
+
+.sidebar-website-link:hover {
+    color: #FFFFFF !important;
+}
+
+.sidebar-brand-logo {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.site-footer {
+    width: calc(100% + 80px);
+    margin-left: -40px !important;
+    margin-right: -40px !important;
+    margin-bottom: -30px !important;
+    padding: 22px 20px;
+    background: #2b6cb0;
+    color: #FFFFFF;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+.navbar-custom {
+    position: relative !important;
+}
+
+.navbar-actions {
+    position: absolute !important;
+    right: 20px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+}
+
+/* ==============================
+   RESPONSIVE
+   ============================== */
+
+@media (max-width: 1199.98px) {
+
+    .main-wrapper {
+        margin-left: 0 !important;
+    }
+
+    .sidebar-wrapper {
+        transform: translateX(-100%);
+        z-index: 1050;
+    }
+
+    .sidebar-wrapper.show {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        padding: 20px !important;
+    }
+
+    .site-footer {
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+}
+
+
+/* TABLET */
+@media (max-width: 991.98px) {
+
+    .main-content {
+        padding: 18px !important;
+    }
+
+    .card-body {
+        padding: 20px !important;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+}
+
+
+/* HP */
+@media (max-width: 767.98px) {
+
+    .main-content {
+        padding: 15px !important;
+    }
+
+    /* Header halaman */
+    .container-fluid > .d-flex.justify-content-between {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    /* Tombol tambah */
+    .container-fluid > .d-flex.justify-content-between > a {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Search */
+    .card-header .d-flex {
+        flex-wrap: wrap;
+    }
+
+    .card-header form {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .card-header form .input-group {
+        width: 100% !important;
+    }
+
+    .card-header form .form-select {
+        width: 100% !important;
+    }
+
+    .card-header form .btn {
+        flex: 1;
+    }
+
+    /* Badge jumlah */
+    .card-header > .d-flex > .badge {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Card */
+    .card-body {
+        padding: 15px !important;
+    }
+
+    /* Tabel */
+    .table {
+        min-width: 700px;
+    }
+
+    /* Footer */
+    .site-footer {
+        padding: 18px 15px !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+}
+
+
+/* HP KECIL */
+@media (max-width: 575.98px) {
+
+    .main-content {
+        padding: 12px !important;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 21px;
+    }
+
+    h3 {
+        font-size: 19px;
+    }
+
+    .card-body {
+        padding: 12px !important;
+    }
+
+    .navbar-custom {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    .navbar-profile-name {
+        display: none !important;
+    }
+
+}

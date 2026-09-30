@@ -44,21 +44,93 @@
 
         <div class="card-body p-0">
 
-            {{-- HEADER CARD --}}
-            <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+            {{-- SEARCH + FILTER --}}
+            <div class="d-flex align-items-center gap-2 p-3 border-bottom">
 
-                <div>
-                    <h5 class="fw-bold mb-1" style="color:#244D73;">
-                        Daftar Galeri
-                    </h5>
+                <form
+                    action="{{ route('admin.galeri') }}"
+                    method="GET"
+                    class="d-flex flex-grow-1 gap-2"
+                >
 
-                    <small class="text-muted">
-                        Foto dan video kegiatan sekolah
-                    </small>
-                </div>
+                    {{-- SEARCH --}}
+                    <div class="input-group flex-grow-1">
 
-                <span class="badge rounded-pill"
-                      style="background:#C8DFDB;color:#3368A0;">
+                        <span class="input-group-text bg-white">
+                            <i class="fa-solid fa-magnifying-glass text-muted"></i>
+                        </span>
+
+                        <input
+                            type="text"
+                            name="search"
+                            class="form-control"
+                            placeholder="Cari galeri..."
+                            value="{{ $search ?? '' }}"
+                        >
+
+                    </div>
+
+
+                    {{-- FILTER KATEGORI --}}
+                    <select
+                        name="kategori"
+                        class="form-select"
+                        style="width:180px;"
+                    >
+
+                        <option value="">
+                            Semua Kategori
+                        </option>
+
+                        <option
+                            value="Foto"
+                            {{ ($kategori ?? '') == 'Foto' ? 'selected' : '' }}
+                        >
+                            Foto
+                        </option>
+
+                        <option
+                            value="Video"
+                            {{ ($kategori ?? '') == 'Video' ? 'selected' : '' }}
+                        >
+                            Video
+                        </option>
+
+                    </select>
+
+
+                    {{-- CARI --}}
+                    <button
+                        type="submit"
+                        class="btn btn-primary px-4"
+                    >
+
+                        <i class="fa-solid fa-magnifying-glass me-1"></i>
+                        Cari
+
+                    </button>
+
+
+                    {{-- RESET --}}
+                    @if(!empty($search) || !empty($kategori))
+
+                        <a
+                            href="{{ route('admin.galeri') }}"
+                            class="btn btn-secondary"
+                        >
+                            Reset
+                        </a>
+
+                    @endif
+
+                </form>
+
+
+                {{-- JUMLAH --}}
+                <span
+                    class="badge rounded-pill flex-shrink-0 px-3 py-2"
+                    style="background:#C8DFDB;color:#3368A0;"
+                >
 
                     {{ $galeris->count() }} Galeri
 
@@ -75,6 +147,7 @@
                     <thead class="table-light">
 
                         <tr>
+
                             <th>No</th>
                             <th>Foto</th>
                             <th>Judul</th>
@@ -82,6 +155,7 @@
                             <th>Kategori</th>
                             <th>Tanggal</th>
                             <th>Aksi</th>
+
                         </tr>
 
                     </thead>
@@ -93,11 +167,13 @@
 
                         <tr>
 
+                            {{-- NO --}}
                             <td>
                                 {{ $loop->iteration }}
                             </td>
 
 
+                            {{-- FOTO / VIDEO --}}
                             <td>
 
                                 @if($galeri->kategori == 'Foto')
@@ -113,9 +189,11 @@
 
                                 @else
 
-                                    <a href="{{ $galeri->file }}"
-                                       target="_blank"
-                                       class="btn btn-sm btn-danger">
+                                    <a
+                                        href="{{ $galeri->file }}"
+                                        target="_blank"
+                                        class="btn btn-sm btn-danger"
+                                    >
 
                                         <i class="fa-brands fa-youtube me-1"></i>
                                         Lihat Video
@@ -127,14 +205,19 @@
                             </td>
 
 
+                            {{-- JUDUL --}}
                             <td class="fw-semibold">
+
                                 {{ $galeri->judul }}
+
                             </td>
 
 
                             {{-- KETERANGAN --}}
                             <td>
+
                                 {{ $galeri->keterangan }}
+
                             </td>
 
 
@@ -144,15 +227,19 @@
                                 @if($galeri->kategori == 'Foto')
 
                                     <span class="badge bg-primary">
+
                                         <i class="fa-solid fa-image me-1"></i>
                                         Foto
+
                                     </span>
 
                                 @else
 
                                     <span class="badge bg-danger">
+
                                         <i class="fa-solid fa-video me-1"></i>
                                         Video
+
                                     </span>
 
                                 @endif
@@ -160,11 +247,15 @@
                             </td>
 
 
+                            {{-- TANGGAL --}}
                             <td>
+
                                 {{ $galeri->tanggal }}
+
                             </td>
 
 
+                            {{-- AKSI --}}
                             <td>
 
                                 <div class="d-flex gap-1">
@@ -175,7 +266,9 @@
                                         class="btn btn-sm btn-warning"
                                         title="Edit"
                                     >
+
                                         <i class="fa-solid fa-pen"></i>
+
                                     </a>
 
 
@@ -194,7 +287,9 @@
                                             class="btn btn-sm btn-danger"
                                             title="Hapus"
                                         >
+
                                             <i class="fa-solid fa-trash"></i>
+
                                         </button>
 
                                     </form>
@@ -205,6 +300,7 @@
 
                         </tr>
 
+
                         @empty
 
                         <tr>
@@ -214,10 +310,22 @@
                                 class="text-center py-5"
                             >
 
-                                <i class="fa-solid fa-images fs-1 text-secondary mb-3"></i>
+                                <i
+                                    class="fa-solid fa-images fs-1 text-secondary mb-3"
+                                ></i>
 
                                 <p class="text-muted mb-0">
-                                    Belum ada data galeri.
+
+                                    @if(!empty($search) || !empty($kategori))
+
+                                        Data galeri tidak ditemukan.
+
+                                    @else
+
+                                        Belum ada data galeri.
+
+                                    @endif
+
                                 </p>
 
                             </td>

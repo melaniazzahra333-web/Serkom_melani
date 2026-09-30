@@ -49,10 +49,43 @@
                     </small>
                 </div>
 
-                <span class="badge rounded-pill"
-                      style="background:#C8DFDB;color:#3368A0;">
-                    {{ $gurus->count() }} Guru
-                </span>
+                <div class="d-flex align-items-center gap-2">
+
+                    <form action="{{ route('admin.guru') }}"
+                        method="GET"
+                        class="d-flex">
+
+                        <div class="input-group">
+
+                            <span class="input-group-text bg-white">
+                                <i class="fa-solid fa-magnifying-glass text-muted"></i>
+                            </span>
+
+                            <input
+                                type="text"
+                                name="search"
+                                class="form-control"
+                                placeholder="Cari guru..."
+                                value="{{ $search ?? '' }}"
+                            >
+
+                        </div>
+
+                        @if(!empty($search))
+                            <a href="{{ route('admin.guru') }}"
+                            class="btn btn-secondary ms-2">
+                                Reset
+                            </a>
+                        @endif
+
+                    </form>
+
+                    <span class="badge rounded-pill"
+                        style="background:#C8DFDB;color:#3368A0;">
+                        {{ $gurus->count() }} Guru
+                    </span>
+
+                </div>
 
             </div>
 

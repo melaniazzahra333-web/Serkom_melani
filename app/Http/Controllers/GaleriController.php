@@ -7,11 +7,30 @@ use Illuminate\Http\Request;
 
 class GaleriController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $galeris = Galeri::latest()->get();
+         $search = $request->search;
+    $kategori = $request->kategori;
 
-        return view('admin.galeri.index', compact('galeris'));
+    $galeris = Galeri::query()
+        ->when($search, function ($query) use ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('judul', 'like', '%' . $search . '%')
+                  ->orWhere('keterangan', 'like', '%' . $search . '%')
+                  ->orWhere('tanggal', 'like', '%' . $search . '%');
+            });
+        })
+        ->when($kategori, function ($query) use ($kategori) {
+            $query->where('kategori', $kategori);
+        })
+        ->latest()
+        ->get();
+
+        return view('admin.galeri.index', compact(
+            'galeris',
+            'search',
+            'kategori'
+        ));
     }
 
     public function create()
@@ -104,6 +123,6 @@ class GaleriController extends Controller
         $galeri->delete();
 
         return redirect()->route('admin.galeri')->with('success', 'Data galeri berhasil dihapus.');
-        
+
     }
 }

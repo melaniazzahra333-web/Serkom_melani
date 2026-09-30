@@ -32,7 +32,7 @@
     </div>
 
 
-    {{-- CARD --}}
+             {{-- CARD --}}
     <div class="card border-0 shadow-sm">
 
         <div class="card-body p-0">
@@ -40,6 +40,7 @@
             <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
 
                 <div>
+
                     <h5 class="fw-bold mb-1" style="color:#244D73;">
                         Daftar Siswa
                     </h5>
@@ -47,12 +48,48 @@
                     <small class="text-muted">
                         Data siswa yang terdaftar
                     </small>
+                    
                 </div>
 
-                <span class="badge rounded-pill"
-                      style="background:#C8DFDB;color:#3368A0;">
-                    {{ $siswas->count() }} Siswa
-                </span>
+                <div class="d-flex align-items-center gap-2">
+
+                    {{-- SEARCH --}}
+                    <form action="{{ route('admin.siswa') }}"
+                        method="GET"
+                        class="d-flex">
+
+                        <div class="input-group">
+
+                            <span class="input-group-text bg-white">
+                                <i class="fa-solid fa-magnifying-glass text-muted"></i>
+                            </span>
+
+                            <input
+                                type="text"
+                                name="search"
+                                class="form-control"
+                                placeholder="Cari siswa..."
+                                value="{{ $search ?? '' }}"
+                            >
+
+                        </div>
+
+                        @if(!empty($search))
+                            <a href="{{ route('admin.siswa') }}"
+                            class="btn btn-secondary ms-2">
+                                Reset
+                            </a>
+                        @endif
+
+                    </form>
+
+                    {{-- JUMLAH DATA --}}
+                    <span class="badge rounded-pill"
+                        style="background:#C8DFDB;color:#3368A0;">
+                        {{ $siswas->count() }} Siswa
+                    </span>
+
+                </div>
 
             </div>
 

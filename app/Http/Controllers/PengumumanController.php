@@ -9,11 +9,30 @@ use Illuminate\Support\Str;
 
 class PengumumanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pengumuman = Pengumuman::latest()->get();
+        
+    $search = $request->search;
+    $status = $request->status;
 
-        return view('admin.pengumuman.index', compact('pengumuman'));
+    $pengumuman = Pengumuman::query()
+        ->when($search, function ($query) use ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('judul', 'like', '%' . $search . '%')
+                  ->orWhere('isi', 'like', '%' . $search . '%')
+                  ->orWhere('tanggal', 'like', '%' . $search . '%');
+            });
+        })
+        ->when($status, function ($query) use ($status) {
+            $query->where('status', $status);
+        })
+        ->get();
+
+        return view('admin.pengumuman.index', compact(
+            'pengumuman',
+            'search',
+            'status'
+        ));
     }
 
 
@@ -54,7 +73,7 @@ class PengumumanController extends Controller
 
         return redirect()->route('admin.pengumuman')->with('success', 'Pengumuman berhasil ditambahkan.');
     }
-    
+
 
     public function edit($id)
     {

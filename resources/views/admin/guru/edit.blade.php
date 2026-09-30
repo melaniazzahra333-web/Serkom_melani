@@ -84,10 +84,19 @@
                         Jabatan
                     </label>
 
-                    <input type="text"
-                           name="jabatan"
-                           class="form-control"
-                           value="{{ old('jabatan', $guru->jabatan) }}">
+                    <select name="jabatan" class="form-select">
+
+                        <option value="">Pilih Jabatan</option>
+
+                        <option value="Kepala Sekolah">Kepala Sekolah</option>
+                        <option value="Wakasek">Wakasek</option>
+                        <option value="Guru">Guru</option>
+                        <option value="Staf Perpustakaan">Staf Perpustakaan</option>
+                        <option value="Staf Administrasi">Staf Administrasi</option>
+                        <option value="Bimbingan Konseling (BK)">Bimbingan Konseling (BK)</option>
+                        <option value="Pembina Ektrakurikuler">Pembina Ekstrakurikuler</option>
+
+                    </select>
 
                 </div>
 

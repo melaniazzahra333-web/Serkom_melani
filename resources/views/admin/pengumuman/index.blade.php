@@ -37,29 +37,101 @@
     {{-- CARD --}}
     <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
 
-        {{-- CARD HEADER --}}
+
+        {{-- SEARCH + FILTER STATUS + JUMLAH --}}
         <div class="card-header bg-white border-0 px-4 py-3">
 
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-2 w-100">
 
-                <div>
+                <form
+                    action="{{ route('admin.pengumuman') }}"
+                    method="GET"
+                    class="d-flex flex-grow-1 gap-2"
+                >
 
-                    <h5 class="fw-bold mb-1" style="color:#244D73;">
-                        Daftar Pengumuman
-                    </h5>
+                    {{-- SEARCH --}}
+                    <div class="input-group flex-grow-1">
 
-                    <small class="text-muted">
-                        Pengumuman yang tersedia di website sekolah
-                    </small>
+                        <span class="input-group-text bg-white">
+                            <i class="fa-solid fa-magnifying-glass text-muted"></i>
+                        </span>
 
-                </div>
+                        <input
+                            type="text"
+                            name="search"
+                            class="form-control"
+                            placeholder="Cari pengumuman..."
+                            value="{{ $search ?? '' }}"
+                        >
+
+                    </div>
 
 
+                    {{-- FILTER STATUS --}}
+                    <select
+                        name="status"
+                        class="form-select"
+                        style="width:180px;"
+                    >
+
+                        <option value="">
+                            Semua Status
+                        </option>
+
+                        <option
+                            value="Publish"
+                            {{ ($status ?? '') == 'Publish' ? 'selected' : '' }}
+                        >
+                            Publish
+                        </option>
+
+                        <option
+                            value="Draft"
+                            {{ ($status ?? '') == 'Draft' ? 'selected' : '' }}
+                        >
+                            Draft
+                        </option>
+
+                    </select>
+
+
+                    {{-- TOMBOL CARI --}}
+                    <button
+                        type="submit"
+                        class="btn btn-primary px-4"
+                    >
+
+                        <i class="fa-solid fa-magnifying-glass me-1"></i>
+                        Cari
+
+                    </button>
+
+
+                    {{-- RESET --}}
+                    @if(!empty($search) || !empty($status))
+
+                        <a
+                            href="{{ route('admin.pengumuman') }}"
+                            class="btn btn-secondary"
+                        >
+
+                            Reset
+
+                        </a>
+
+                    @endif
+
+                </form>
+
+
+                {{-- JUMLAH PENGUMUMAN --}}
                 <span
-                    class="badge rounded-pill px-3 py-2"
+                    class="badge rounded-pill flex-shrink-0 px-3 py-2"
                     style="background:#C8DFDB;color:#3368A0;"
                 >
+
                     {{ $pengumuman->count() }} Pengumuman
+
                 </span>
 
             </div>
@@ -67,22 +139,29 @@
         </div>
 
 
-        {{-- ALERT --}}
+        {{-- ALERT SUCCESS --}}
         @if(session('success'))
 
             <div class="alert alert-success mx-4 mt-3 mb-0">
+
                 <i class="fa-solid fa-circle-check me-1"></i>
+
                 {{ session('success') }}
+
             </div>
 
         @endif
 
 
+        {{-- ALERT ERROR --}}
         @if(session('error'))
 
             <div class="alert alert-danger mx-4 mt-3 mb-0">
+
                 <i class="fa-solid fa-circle-exclamation me-1"></i>
+
                 {{ session('error') }}
+
             </div>
 
         @endif
@@ -130,142 +209,202 @@
 
                     @forelse($pengumuman as $item)
 
-                    <tr>
+                        <tr>
 
-                        <td class="px-4">
-                            {{ $loop->iteration }}
-                        </td>
+                            {{-- NO --}}
+                            <td class="px-4">
 
+                                {{ $loop->iteration }}
 
-                        <td>
-
-                            <div
-                                class="fw-semibold"
-                                style="color:#244D73;"
-                            >
-                                {{ $item->judul }}
-                            </div>
-
-                        </td>
+                            </td>
 
 
-                        <td>
+                            {{-- JUDUL --}}
+                            <td>
 
-                            <div
-                                class="text-muted"
-                                style="max-width:400px;"
-                            >
-                                {{ \Illuminate\Support\Str::limit(
-                                    strip_tags($item->isi),
-                                    80
-                                ) }}
-                            </div>
+                                <div
+                                    class="fw-semibold"
+                                    style="color:#244D73;"
+                                >
 
-                        </td>
+                                    {{ $item->judul }}
 
+                                </div>
 
-                        <td>
-
-                            <span class="text-muted">
-                                {{ $item->tanggal->format('d M Y') }}
-                            </span>
-
-                        </td>
+                            </td>
 
 
-                        <td>
+                            {{-- ISI --}}
+                            <td>
 
-                            @if($item->status == 'Publish')
+                                <div
+                                    class="text-muted"
+                                    style="max-width:400px;"
+                                >
 
-                                <span class="badge bg-success rounded-pill px-3 py-2">
+                                    {{ \Illuminate\Support\Str::limit(
+                                        strip_tags($item->isi),
+                                        80
+                                    ) }}
 
-                                    <i class="fa-solid fa-circle-check me-1"></i>
-                                    Publish
+                                </div>
+
+                            </td>
+
+
+                            {{-- TANGGAL --}}
+                            <td>
+
+                                <span class="text-muted">
+
+                                    {{ $item->tanggal->format('d M Y') }}
 
                                 </span>
 
-                            @else
-
-                                <span class="badge bg-secondary rounded-pill px-3 py-2">
-
-                                    <i class="fa-solid fa-file me-1"></i>
-                                    Draft
-
-                                </span>
-
-                            @endif
-
-                        </td>
+                            </td>
 
 
-                        <td>
+                            {{-- STATUS --}}
+                            <td>
 
-                            <div class="d-flex gap-2">
+                                @if($item->status == 'Publish')
 
-                                <a
-                                    href="{{ route('admin.pengumuman.edit', ['id' => $item->id_pengumuman]) }}"
-                                    class="btn btn-sm btn-warning"
-                                    title="Edit"
-                                >
-                                    <i class="fa-solid fa-pen"></i>
-                                </a>
-
-
-                                <form
-                                    action="{{ route('admin.pengumuman.destroy', ['id' => $item->id_pengumuman]) }}"
-                                    method="POST"
-                                    class="form-hapus"
-                                >
-
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <button
-                                        type="submit"
-                                        class="btn btn-sm btn-danger"
-                                        title="Hapus"
+                                    <span
+                                        class="badge bg-success rounded-pill px-3 py-2"
                                     >
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
 
-                                </form>
+                                        <i class="fa-solid fa-circle-check me-1"></i>
 
-                            </div>
+                                        Publish
 
-                        </td>
+                                    </span>
 
-                    </tr>
+                                @else
+
+                                    <span
+                                        class="badge bg-secondary rounded-pill px-3 py-2"
+                                    >
+
+                                        <i class="fa-solid fa-file me-1"></i>
+
+                                        Draft
+
+                                    </span>
+
+                                @endif
+
+                            </td>
+
+
+                            {{-- AKSI --}}
+                            <td>
+
+                                <div class="d-flex gap-2">
+
+
+                                    {{-- EDIT --}}
+                                    <a
+                                        href="{{ route(
+                                            'admin.pengumuman.edit',
+                                            ['id' => $item->id_pengumuman]
+                                        ) }}"
+                                        class="btn btn-sm btn-warning"
+                                        title="Edit"
+                                    >
+
+                                        <i class="fa-solid fa-pen"></i>
+
+                                    </a>
+
+
+                                    {{-- HAPUS --}}
+                                    <form
+                                        action="{{ route(
+                                            'admin.pengumuman.destroy',
+                                            ['id' => $item->id_pengumuman]
+                                        ) }}"
+                                        method="POST"
+                                        class="form-hapus"
+                                    >
+
+                                        @csrf
+
+                                        @method('DELETE')
+
+
+                                        <button
+                                            type="submit"
+                                            class="btn btn-sm btn-danger"
+                                            title="Hapus"
+                                        >
+
+                                            <i class="fa-solid fa-trash"></i>
+
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
 
 
                     @empty
 
-                    <tr>
+                        <tr>
 
-                        <td colspan="6">
+                            <td colspan="6">
 
-                            <div class="text-center py-5">
+                                <div class="text-center py-5">
 
-                                <i
-                                    class="fa-solid fa-clipboard-list mb-3"
-                                    style="font-size:40px;color:#66A3BF;"
-                                ></i>
+                                    <i
+                                        class="fa-solid fa-clipboard-list mb-3"
+                                        style="
+                                            font-size:40px;
+                                            color:#66A3BF;
+                                        "
+                                    ></i>
 
-                                <h6
-                                    class="fw-bold"
-                                    style="color:#244D73;"
-                                >
-                                    Belum ada pengumuman
-                                </h6>
 
-                                <p class="text-muted small mb-0">
-                                    Silakan tambahkan pengumuman terlebih dahulu.
-                                </p>
+                                    <h6
+                                        class="fw-bold"
+                                        style="color:#244D73;"
+                                    >
 
-                            </div>
+                                        @if(!empty($search) || !empty($status))
 
-                        </td>
+                                            Data pengumuman tidak ditemukan
 
-                    </tr>
+                                        @else
+
+                                            Belum ada pengumuman
+
+                                        @endif
+
+                                    </h6>
+
+
+                                    <p class="text-muted small mb-0">
+
+                                        @if(!empty($search) || !empty($status))
+
+                                            Coba ubah kata pencarian atau status.
+
+                                        @else
+
+                                            Silakan tambahkan pengumuman terlebih dahulu.
+
+                                        @endif
+
+                                    </p>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
 
                     @endforelse
 

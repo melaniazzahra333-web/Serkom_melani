@@ -10,14 +10,27 @@ class SiswaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        // return view('admin.siswa');
-        $siswas = Siswa::all();
+        // $siswas = Siswa::all();
 
-        return view('admin.siswa.index', compact('siswas'));
+        // return view('admin.siswa.index', compact('siswas'));
+
+        $search = $request->search;
+
+        $siswas = Siswa::query()
+            ->when($search, function ($query) use ($search) {
+                $query->where('nisn', 'like', '%' . $search . '%')
+                    ->orWhere('nama_siswa', 'like', '%' . $search . '%')
+                    ->orWhere('jenis_kelamin', 'like', '%' . $search . '%')
+                    ->orWhere('tahun_masuk', 'like', '%' . $search . '%');
+            })
+            ->get();
+
+        return view('admin.siswa.index', compact('siswas', 'search'));
     }
+   
 
     /**
      * Show the form for creating a new resource.

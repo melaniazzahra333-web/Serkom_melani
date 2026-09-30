@@ -8,11 +8,23 @@ use Illuminate\Support\Facades\Storage;
 
 class PrestasiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $prestasis = Prestasi::latest()->get();
+        // $prestasis = Prestasi::latest()->get();
 
-        return view('admin.prestasi.index', compact('prestasis'));
+        // return view('admin.prestasi.index', compact('prestasis'));
+        $search = $request->search;
+
+        $prestasis = Prestasi::query()
+            ->when($search, function ($query) use ($search) {
+                $query->where('deskripsi', 'like', '%' . $search . '%')
+                    ->orWhere('tahun_ajaran', 'like', '%' . $search . '%');
+            })
+            ->latest()
+            ->get();
+
+        return view('admin.prestasi.index', compact('prestasis', 'search'));
+
     }
 
     public function create()
