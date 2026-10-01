@@ -21,92 +21,49 @@
         </div>
     @endif
 
-    @if($errors->any())
-        <div class="alert alert-danger">
-            <ul class="mb-0">
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
     <div class="card border-0 shadow-sm">
 
         <div class="card-body p-4">
 
-            <form action="{{ route('admin.user.profile.update') }}" method="POST">
-
-                @csrf
-                @method('PUT')
+            <div class="text-center mb-4">
 
                 <div class="mb-3">
-                    <label class="form-label fw-semibold">
-                        Nama
-                    </label>
-
-                    <input
-                        type="text"
-                        name="name"
-                        class="form-control"
-                        value="{{ old('name', $user->name) }}"
-                        required
-                    >
+                    <i class="fa-solid fa-circle-user fa-6x text-secondary"></i>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label fw-semibold">
-                        Username
-                    </label>
+                <h4 class="fw-bold mb-1">
+                    {{ $user->name }}
+                </h4>
 
-                    <input
-                        type="text"
-                        name="username"
-                        class="form-control"
-                        value="{{ old('username', $user->username) }}"
-                        required
-                    >
-                </div>
+                <p class="text-muted mb-0">
+                    {{ $user->role }}
+                </p>
 
-                <div class="mb-3">
-                    <label class="form-label fw-semibold">
-                        Password Baru
-                    </label>
+            </div>
 
-                    <input
-                        type="password"
-                        name="password"
-                        class="form-control"
-                        placeholder="Kosongkan jika tidak ingin mengganti password"
-                    >
-                </div>
+            <div class="mb-3">
+                <label class="fw-semibold">Nama</label>
+                <p class="mb-0">{{ $user->name }}</p>
+            </div>
 
-                <div class="mb-4">
-                    <label class="form-label fw-semibold">
-                        Role
-                    </label>
+            <div class="mb-3">
+                <label class="fw-semibold">Username</label>
+                <p class="mb-0">{{ $user->username }}</p>
+            </div>
 
-                    <input
-                        type="text"
-                        class="form-control"
-                        value="{{ $user->role }}"
-                        readonly
-                    >
-                </div>
+            <div class="mb-4">
+                <label class="fw-semibold">Role</label>
+                <p class="mb-0">{{ $user->role }}</p>
+            </div>
 
-                <div class="d-flex gap-2">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fa-solid fa-floppy-disk me-1"></i>
-                        Simpan Perubahan
-                    </button>
+            <a href="{{ route('admin.user.profile.edit') }}" class="btn btn-primary">
+                <i class="fa-solid fa-pen-to-square me-1"></i>
+                Edit Profil
+            </a>
 
-                    <a href="javascript:history.back()" class="btn btn-secondary">
-                        <i class="fa-solid fa-arrow-left me-1"></i>
-                        Kembali
-                    </a>
-                </div>
-            </form>
         </div>
     </div>
+
 </div>
+
 @endsection

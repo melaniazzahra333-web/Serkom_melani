@@ -37,6 +37,13 @@ class UserController extends Controller
         return view('admin.user.profile', compact('user'));
     }
 
+    public function editProfile()
+{
+    $user = User::findOrFail(session('user_id'));
+
+    return view('admin.user.edit-profile', compact('user'));
+}
+
     public function updateProfile(Request $request)
 {
     $user = User::findOrFail(session('user_id'));
