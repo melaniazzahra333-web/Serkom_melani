@@ -51,8 +51,6 @@
     <div class="card border-0 shadow-sm">
 
         <div class="card-body p-0">
-
-            {{-- HEADER CARD --}}
             <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
 
                 <div>
@@ -67,17 +65,50 @@
 
                 </div>
 
+                <div class="d-flex align-items-center gap-2">
 
-                <span class="badge rounded-pill"
-                      style="background:#C8DFDB;color:#3368A0;">
+                    <form action="{{ route('admin.user') }}" method="GET">
 
-                    {{ $users->count() }} User
+                        <div class="input-group">
 
-                </span>
+                            <span class="input-group-text bg-light">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </span>
+
+                            <input
+                                type="text"
+                                name="search"
+                                class="form-control"
+                                placeholder="Cari user..."
+                                value="{{ $search ?? '' }}"
+                                style="width: 150px;"
+                            >
+
+                           
+
+                            @if(!empty($search))
+
+                                <a href="{{ route('admin.user') }}"
+                                class="btn btn-secondary">
+                                    Reset
+                                </a>
+
+                            @endif
+
+                        </div>
+
+                    </form>
+
+                    <span class="badge rounded-pill"
+                        style="background:#C8DFDB;color:#3368A0;">
+
+                        {{ $users->count() }} User
+
+                    </span>
+
+                </div>
 
             </div>
-
-
             {{-- TABLE --}}
             <div class="table-responsive">
 

@@ -14,12 +14,10 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
-
 //Login
 Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.process');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
 
 
 //admin
@@ -116,9 +114,10 @@ Route::middleware('auth.admin')->group(function () {
 
 });
 
-
-
 //halaman awal
+// Route::get('/', function () {
+//     return redirect()->route('login');
+// });
 Route::get('/', function () {
-    return redirect()->route('login');
+    return view('landing.index');
 });

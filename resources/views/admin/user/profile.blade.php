@@ -94,17 +94,19 @@
                     >
                 </div>
 
-                <button type="submit" class="btn btn-primary">
-                    <i class="fa-solid fa-floppy-disk me-1"></i>
-                    Simpan Perubahan
-                </button>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-solid fa-floppy-disk me-1"></i>
+                        Simpan Perubahan
+                    </button>
 
+                    <a href="javascript:history.back()" class="btn btn-secondary">
+                        <i class="fa-solid fa-arrow-left me-1"></i>
+                        Kembali
+                    </a>
+                </div>
             </form>
-
         </div>
-
     </div>
-
 </div>
-
 @endsection

@@ -9,11 +9,25 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
+        // $users = User::all();
 
-        return view('admin.user.index', compact('users'));
+        // return view('admin.user.index', compact('users'));
+
+        $search = $request->search;
+
+        $users = User::query()
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('username', 'like', '%' . $search . '%')
+                    ->orWhere('role', 'like', '%' . $search . '%');
+                });
+            })
+            ->get();
+
+        return view('admin.user.index', compact('users', 'search'));
     }
 
     public function profile()
