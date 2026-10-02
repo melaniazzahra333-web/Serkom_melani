@@ -29,10 +29,23 @@
 
         <div class="card-body p-4">
 
-            <form action="{{ route('admin.user.profile.update') }}" method="POST">
+            <form action="{{ route('admin.user.profile.update') }}" method="POST" enctype="multipart/form-data">
 
                 @csrf
                 @method('PUT')
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">
+                        Foto Profil
+                    </label>
+
+                    <input
+                        type="file"
+                        name="foto"
+                        class="form-control"
+                        accept="image/*"
+                    >
+                </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold">

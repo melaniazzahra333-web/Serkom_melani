@@ -52,15 +52,16 @@ class UserController extends Controller
         'name' => 'required|string|max:100',
         'username' => 'required|string|max:30|unique:user,username,' . $user->id_user . ',id_user',
         'password' => 'nullable|min:6',
+        'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
     ]);
 
     $data = [
-        'name' => $request->name,
-        'username' => $request->username,
+    'name' => $request->name,
+    'username' => $request->username,
     ];
 
-    if ($request->filled('password')) {
-        $data['password'] = Hash::make($request->password);
+    if ($request->hasFile('foto')) {
+        $data['foto'] = $request->file('foto')->store('profil', 'public');
     }
 
     $user->update($data);

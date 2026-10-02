@@ -26,6 +26,7 @@
 
     @php
         $profil = \App\Models\Profil::first();
+        $user = \App\Models\User::find(session('user_id'));
     @endphp
 
     <!-- SIDEBAR -->
@@ -242,13 +243,31 @@
                 </div>
 
                 <!-- ADMIN PROFILE -->
-                <div class="dropdown ms-2">
-                    <button class="navbar-profile-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ asset('assets/images/profil2.jpg') }}" alt="Profile" class="navbar-profile-img">
-                        <span class="navbar-profile-name d-none d-md-inline">{{ session('user_name', 'Administrator') }}</span>
-                        <i class="bi bi-chevron-down navbar-profile-caret"></i>
-                    </button>
+                <!-- ADMIN PROFILE -->
+<div class="dropdown ms-2">
+    <button class="navbar-profile-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 
+        @if($user && $user->foto)
+            <img
+                src="{{ asset('storage/' . $user->foto) }}"
+                alt="Profile"
+                class="navbar-profile-img"
+            >
+        @else
+            <img
+                src="{{ asset('assets/images/profil2.jpg') }}"
+                alt="Profile"
+                class="navbar-profile-img"
+            >
+        @endif
+
+        <span class="navbar-profile-name d-none d-md-inline">
+            {{ session('user_name', 'Administrator') }}
+        </span>
+
+        <i class="bi bi-chevron-down navbar-profile-caret"></i>
+
+    </button>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-profile">
                         <li class="dropdown-header">{{ session('user_name', 'Administrator') }}</li>
 
@@ -282,11 +301,22 @@
 
         <!-- FOOTER -->
         <footer class="site-footer">
-            <div class="text-center">
-                <p class="fw-bold mb-1"><span>{{ $profil->nama_sekolah ?? 'Nama Sekolah' }}</span></p>
-                <small>&copy; 2026 Sistem Informasi Sekolah</small>
-            </div>
-        </footer>
+
+    
+    <!-- COPYRIGHT -->
+    <div class="footer-bottom text-center py-3">
+
+        <div>
+            <strong>
+                © 2026 SMK YPC TASIKMALAYA.
+            </strong>
+
+            Mencetak Generasi Siap Kerja, Siap Berkarya.
+        </div>
+
+    </div>
+
+</footer>
 
     </div>
     <!-- JAVASCRIPT -->
