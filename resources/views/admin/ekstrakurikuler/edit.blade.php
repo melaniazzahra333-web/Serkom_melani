@@ -7,12 +7,15 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
 
         <div>
-            <h2 class="mb-1">Edit Ekstrakurikuler</h2>
+            <h2 class="mb-1">
+                <i class="fa-solid fa-people-group me-2" style="color:#244D73;"></i>
+                Edit Ekstrakurikuler
+            </h2>
+
             <p class="text-muted mb-0">
                 Perbarui data ekstrakurikuler
             </p>
         </div>
-
 
     </div>
 
@@ -35,6 +38,7 @@
                     <div class="col-md-6 mb-3">
 
                         <label class="form-label">
+                            <i class="fa-solid fa-people-group me-1" style="color:#244D73;"></i>
                             Nama Ekstrakurikuler
                         </label>
 
@@ -58,6 +62,7 @@
                     <div class="col-md-6 mb-3">
 
                         <label class="form-label">
+                            <i class="fa-solid fa-user-tie me-1" style="color:#244D73;"></i>
                             Pembina
                         </label>
 
@@ -81,6 +86,7 @@
                     <div class="col-md-6 mb-3">
 
                         <label class="form-label">
+                            <i class="fa-solid fa-calendar-days me-1" style="color:#244D73;"></i>
                             Jadwal Latihan
                         </label>
 
@@ -104,6 +110,7 @@
                     <div class="col-md-6 mb-3">
 
                         <label class="form-label">
+                            <i class="fa-solid fa-image me-1" style="color:#244D73;"></i>
                             Ganti Gambar
                         </label>
 
@@ -129,6 +136,7 @@
                     <div class="col-12 mb-3">
 
                         <label class="form-label">
+                            <i class="fa-solid fa-image me-1" style="color:#244D73;"></i>
                             Gambar Saat Ini
                         </label>
 
@@ -140,7 +148,7 @@
                                  width="180"
                                  height="120"
                                  class="rounded"
-                                 style="object-fit: cover;">
+                                 style="object-fit:cover;">
 
                         @else
 
@@ -157,6 +165,7 @@
                     <div class="col-12 mb-3">
 
                         <label class="form-label">
+                            <i class="fa-solid fa-align-left me-1" style="color:#244D73;"></i>
                             Deskripsi
                         </label>
 
@@ -189,6 +198,7 @@
                     <a href="{{ route('admin.ektrakurikuler') }}"
                        class="btn btn-secondary">
 
+                        <i class="fa-solid fa-arrow-left me-1"></i>
                         Batal
 
                     </a>

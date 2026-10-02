@@ -132,8 +132,8 @@
 
                                     <img
                                         src="{{ asset('storage/' . $guru->foto) }}"
-                                        width="45"
-                                        height="45"
+                                        width="100"
+                                        height="100"
                                         class="rounded"
                                         style="object-fit:cover;"
                                         alt="Foto Guru"

@@ -32,7 +32,7 @@
     </div>
 
 
-             {{-- CARD --}}
+    {{-- CARD --}}
     <div class="card border-0 shadow-sm">
 
         <div class="card-body p-0">
@@ -48,7 +48,7 @@
                     <small class="text-muted">
                         Data siswa yang terdaftar
                     </small>
-                    
+
                 </div>
 
                 <div class="d-flex align-items-center gap-2">
@@ -180,13 +180,15 @@
                                     <div class="d-flex gap-1">
 
                                         {{-- EDIT --}}
-                                        <a
-                                            href="{{ route('admin.siswa.edit', $siswa->id_siswa) }}"
+                                        <button
+                                            type="button"
                                             class="btn btn-sm btn-warning"
                                             title="Edit"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#editSiswa{{ $siswa->id_siswa }}"
                                         >
                                             <i class="fa-solid fa-pen"></i>
-                                        </a>
+                                        </button>
 
 
                                         {{-- HAPUS --}}
@@ -209,6 +211,177 @@
                             @endif
 
                         </tr>
+
+
+                        {{-- MODAL EDIT SISWA --}}
+                        @if(session('user_role') === 'Admin')
+
+                        <div class="modal fade"
+                             id="editSiswa{{ $siswa->id_siswa }}"
+                             tabindex="-1"
+                             aria-hidden="true">
+
+                            <div class="modal-dialog modal-dialog-centered">
+
+                                <div class="modal-content border-0 shadow-lg"
+                                     style="border-radius:15px;">
+
+                                    <div class="modal-header">
+
+                                        <h5 class="modal-title fw-bold"
+                                            style="color:#244D73;">
+
+                                            <i class="fa-solid fa-user-pen me-2"
+                                               style="color:#244D73;"></i>
+
+                                            Edit Siswa
+
+                                        </h5>
+
+                                        <button type="button"
+                                                class="btn-close"
+                                                data-bs-dismiss="modal">
+                                        </button>
+
+                                    </div>
+
+
+                                    <div class="modal-body">
+
+                                        <form action="{{ route('admin.siswa.update', $siswa->id_siswa) }}"
+                                              method="POST">
+
+                                            @csrf
+
+                                            @method('PUT')
+
+
+                                            <div class="mb-3">
+
+                                                <label class="form-label">
+
+                                                    <i class="fa-solid fa-id-card me-1"
+                                                       style="color:#244D73;"></i>
+
+                                                    NISN
+
+                                                </label>
+
+                                                <input type="text"
+                                                       name="nisn"
+                                                       class="form-control"
+                                                       value="{{ $siswa->nisn }}"
+                                                       required>
+
+                                            </div>
+
+
+                                            <div class="mb-3">
+
+                                                <label class="form-label">
+
+                                                    <i class="fa-solid fa-user me-1"
+                                                       style="color:#244D73;"></i>
+
+                                                    Nama Siswa
+
+                                                </label>
+
+                                                <input type="text"
+                                                       name="nama_siswa"
+                                                       class="form-control"
+                                                       value="{{ $siswa->nama_siswa }}"
+                                                       required>
+
+                                            </div>
+
+
+                                            <div class="mb-3">
+
+                                                <label class="form-label">
+
+                                                    <i class="fa-solid fa-venus-mars me-1"
+                                                       style="color:#244D73;"></i>
+
+                                                    Jenis Kelamin
+
+                                                </label>
+
+                                                <select name="jenis_kelamin"
+                                                        class="form-control"
+                                                        required>
+
+                                                    <option value="Laki-Laki"
+                                                        {{ $siswa->jenis_kelamin == 'Laki-Laki' ? 'selected' : '' }}>
+                                                        Laki-Laki
+                                                    </option>
+
+                                                    <option value="Perempuan"
+                                                        {{ $siswa->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>
+                                                        Perempuan
+                                                    </option>
+
+                                                </select>
+
+                                            </div>
+
+
+                                            <div class="mb-3">
+
+                                                <label class="form-label">
+
+                                                    <i class="fa-solid fa-calendar me-1"
+                                                       style="color:#244D73;"></i>
+
+                                                    Tahun Masuk
+
+                                                </label>
+
+                                                <input type="number"
+                                                       name="tahun_masuk"
+                                                       class="form-control"
+                                                       value="{{ $siswa->tahun_masuk }}"
+                                                       required>
+
+                                            </div>
+
+
+                                            <div class="d-flex justify-content-end gap-2 mt-4">
+
+                                                <button type="button"
+                                                        class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">
+
+                                                    <i class="fa-solid fa-xmark me-1"></i>
+
+                                                    Batal
+
+                                                </button>
+
+                                                <button type="submit"
+                                                        class="btn btn-primary">
+
+                                                    <i class="fa-solid fa-floppy-disk me-1"></i>
+
+                                                    Update
+
+                                                </button>
+
+                                            </div>
+
+
+                                        </form>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        @endif
+
 
                         @empty
 

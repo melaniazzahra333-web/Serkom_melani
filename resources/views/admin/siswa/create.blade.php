@@ -4,7 +4,10 @@
 
 <div class="container-fluid">
 
-    <h2 class="mb-4">Tambah Siswa</h2>
+    <h2 class="mb-4">
+        <i class="fa-solid fa-user-plus me-2" style="color:#244D73;"></i>
+        Tambah Siswa
+    </h2>
 
     <div class="card">
 
@@ -16,6 +19,7 @@
 
                 <div class="mb-3">
                     <label class="form-label">
+                        <i class="fa-solid fa-id-card me-1" style="color:#244D73;"></i>
                         NISN
                     </label>
 
@@ -28,6 +32,7 @@
 
                 <div class="mb-3">
                     <label class="form-label">
+                        <i class="fa-solid fa-user me-1" style="color:#244D73;"></i>
                         Nama Siswa
                     </label>
 
@@ -40,6 +45,7 @@
 
                 <div class="mb-3">
                     <label class="form-label">
+                        <i class="fa-solid fa-venus-mars me-1" style="color:#244D73;"></i>
                         Jenis Kelamin
                     </label>
 
@@ -65,6 +71,7 @@
 
                 <div class="mb-3">
                     <label class="form-label">
+                        <i class="fa-solid fa-calendar me-1" style="color:#244D73;"></i>
                         Tahun Masuk
                     </label>
 
@@ -77,11 +84,13 @@
 
                 <button type="submit"
                         class="btn btn-primary">
+                    <i class="fa-solid fa-floppy-disk me-1"></i>
                     Simpan
                 </button>
 
                 <a href="{{ route('admin.siswa') }}"
                    class="btn btn-secondary">
+                    <i class="fa-solid fa-arrow-left me-1"></i>
                     Kembali
                 </a>
 

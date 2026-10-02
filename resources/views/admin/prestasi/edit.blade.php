@@ -5,23 +5,36 @@
 <div class="container-fluid">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
+
         <div>
-            <h4 class="fw-bold mb-1">Edit Prestasi</h4>
-            <p class="text-muted mb-0">Perbarui data prestasi sekolah</p>
+
+            <h4 class="fw-bold mb-1">
+                <i class="fas fa-medal me-2" style="color:#244D73;"></i>
+                Edit Prestasi
+            </h4>
+
+            <p class="text-muted mb-0">
+                Perbarui data prestasi sekolah
+            </p>
+
         </div>
 
 
     </div>
 
     <div class="card border-0 shadow-sm">
+
         <div class="card-body">
 
             <form action="{{ route('admin.prestasi.update', $prestasi->id_prestasi) }}" method="POST" enctype="multipart/form-data">
+
                 @csrf
                 @method('PUT')
 
                 <div class="mb-3">
+
                     <label class="form-label fw-semibold">
+                        <i class="fas fa-align-left me-1" style="color:#244D73;"></i>
                         Deskripsi Prestasi
                     </label>
 
@@ -31,14 +44,19 @@
                         rows="5">{{ old('deskripsi', $prestasi->deskripsi) }}</textarea>
 
                     @error('deskripsi')
+
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
+
                     @enderror
+
                 </div>
 
                 <div class="mb-3">
+
                     <label class="form-label fw-semibold">
+                        <i class="fas fa-calendar me-1" style="color:#244D73;"></i>
                         Tahun Ajaran
                     </label>
 
@@ -49,14 +67,19 @@
                         value="{{ old('tahun_ajaran', $prestasi->tahun_ajaran) }}">
 
                     @error('tahun_ajaran')
+
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
+
                     @enderror
+
                 </div>
 
                 <div class="mb-3">
+
                     <label class="form-label fw-semibold">
+                        <i class="fas fa-image me-1" style="color:#244D73;"></i>
                         Foto Prestasi
                     </label>
 
@@ -67,33 +90,47 @@
                         accept="image/*">
 
                     @error('foto')
+
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
+
                     @enderror
+
                 </div>
 
                 @if($prestasi->foto)
+
                     <div class="mb-4">
-                        <p class="fw-semibold mb-2">Foto Saat Ini:</p>
+
+                        <p class="fw-semibold mb-2">
+                            Foto Saat Ini:
+                        </p>
 
                         <img
                             src="{{ asset('storage/' . $prestasi->foto) }}"
                             alt="Foto Prestasi"
-                            style="width: 180px; height: 120px; object-fit: cover; border-radius: 8px;">
+                            style="width:180px;height:120px;object-fit:cover;border-radius:8px;"
+                        >
+
                     </div>
+
                 @endif
 
                 <div class="d-flex gap-2">
 
                     <button type="submit" class="btn btn-primary">
+
                         <i class="fas fa-save me-1"></i>
                         Simpan Perubahan
+
                     </button>
 
                     <a href="{{ route('admin.prestasi') }}" class="btn btn-secondary">
+
                         <i class="fas fa-arrow-left me-1"></i>
                         Kembali
+
                     </a>
 
                 </div>
@@ -101,6 +138,7 @@
             </form>
 
         </div>
+
     </div>
 
 </div>

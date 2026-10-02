@@ -3341,6 +3341,18 @@ body {
     transform: translateY(-50%) !important;
 }
 
+body.sidebar-minimized .sidebar-website-link span {
+    display: none !important;
+}
+
+body.sidebar-minimized .sidebar-website-link {
+    justify-content: center;
+}
+
+body.sidebar-minimized .sidebar-website-link i {
+    margin: 0;
+}
+
 /* ==============================
    RESPONSIVE
    ============================== */

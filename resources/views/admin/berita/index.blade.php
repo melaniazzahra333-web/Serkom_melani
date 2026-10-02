@@ -192,6 +192,10 @@
                         </th>
 
                         <th class="py-3 text-muted small">
+                            Foto
+                        </th>
+
+                        <th class="py-3 text-muted small">
                             Judul
                         </th>
 
@@ -227,6 +231,28 @@
                         <td class="px-4">
 
                             {{ $loop->iteration }}
+
+                        </td>
+
+
+                        {{-- FOTO --}}
+                        <td>
+
+                            @if($berita->gambar)
+
+                                <img
+                                    src="{{ asset('storage/' . $berita->gambar) }}"
+                                    alt="Foto Berita"
+                                    style="width:100px;height:100px;object-fit:cover;border-radius:8px;"
+                                >
+
+                            @else
+
+                                <span class="text-muted small">
+                                    Tidak ada foto
+                                </span>
+
+                            @endif
 
                         </td>
 
@@ -361,7 +387,7 @@
 
                     <tr>
 
-                        <td colspan="6">
+                        <td colspan="7">
 
                             <div class="text-center py-5">
 

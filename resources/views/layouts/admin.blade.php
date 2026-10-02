@@ -216,71 +216,38 @@
                     <i class="bi bi-arrows-fullscreen"></i>
                 </button>
 
-                <!-- NOTIFICATION -->
-                <div class="dropdown">
-                    <button class="navbar-action-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-bell"></i><span class="navbar-action-badge"></span>
+              
+                <!-- ADMIN PROFILE -->
+
+                <div class="dropdown ms-2">
+                    <button class="navbar-profile-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+                        @if($user && $user->foto)
+                            <img
+                                src="{{ asset('storage/' . $user->foto) }}"
+                                alt="Profile"
+                                class="navbar-profile-img"
+                            >
+                        @else
+                            <img
+                                src="{{ asset('assets/images/profil2.jpg') }}"
+                                alt="Profile"
+                                class="navbar-profile-img"
+                            >
+                        @endif
+
+                        <span class="navbar-profile-name d-none d-md-inline">
+                            {{ session('user_name', 'Administrator') }}
+                        </span>
+
+                        <i class="bi bi-chevron-down navbar-profile-caret"></i>
+
                     </button>
-
-                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-notification p-0">
-                        <div class="notification-header">
-                            <h6 class="notification-title">Notifikasi</h6>
-                        </div>
-
-                        <div class="notification-list">
-                            <div class="notification-item">
-                                <div class="notification-icon bg-primary text-white">
-                                    <i class="bi bi-info-circle"></i>
-                                </div>
-
-                                <div class="notification-content">
-                                    <p class="notification-text">Selamat datang di Sistem Informasi Sekolah.</p>
-                                    <span class="notification-time">Sekarang</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ADMIN PROFILE -->
-                <!-- ADMIN PROFILE -->
-<div class="dropdown ms-2">
-    <button class="navbar-profile-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-
-        @if($user && $user->foto)
-            <img
-                src="{{ asset('storage/' . $user->foto) }}"
-                alt="Profile"
-                class="navbar-profile-img"
-            >
-        @else
-            <img
-                src="{{ asset('assets/images/profil2.jpg') }}"
-                alt="Profile"
-                class="navbar-profile-img"
-            >
-        @endif
-
-        <span class="navbar-profile-name d-none d-md-inline">
-            {{ session('user_name', 'Administrator') }}
-        </span>
-
-        <i class="bi bi-chevron-down navbar-profile-caret"></i>
-
-    </button>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-profile">
                         <li class="dropdown-header">{{ session('user_name', 'Administrator') }}</li>
 
                         <li>
                             <a class="dropdown-item" href="{{ route('admin.user.profile') }}"><i class="bi bi-person"></i>Profil</a>
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item" href="#"><i class="bi bi-gear"></i>Pengaturan</a>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
                         </li>
 
                         <li>
@@ -300,11 +267,11 @@
         </main>
 
         <!-- FOOTER -->
-        <footer class="site-footer">
+        <footer class="site-footer mt-5">
 
-    
-    <!-- COPYRIGHT -->
-    <div class="footer-bottom text-center py-3">
+
+
+    <div class="footer-bottom text-center py-3 ">
 
         <div>
             <strong>

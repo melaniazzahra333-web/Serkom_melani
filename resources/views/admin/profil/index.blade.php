@@ -37,6 +37,7 @@
     @if(session('success'))
 
         <div class="alert alert-success">
+            <i class="fa-solid fa-circle-check me-2"></i>
             {{ session('success') }}
         </div>
 
@@ -248,13 +249,17 @@
                         {{-- AKSI --}}
                         <div class="text-end mt-3">
 
-                            <a href="{{ route('admin.profil.edit', $profil->id_profil) }}"
-                               class="btn btn-warning">
+                            <button
+                                type="button"
+                                class="btn btn-warning"
+                                data-bs-toggle="modal"
+                                data-bs-target="#editProfilModal"
+                            >
 
                                 <i class="fa-solid fa-pen me-1"></i>
                                 Edit
 
-                            </a>
+                            </button>
 
                         </div>
 
@@ -267,6 +272,432 @@
         </div>
 
     </div>
+
+
+    {{-- MODAL EDIT PROFIL --}}
+    <div class="modal fade"
+         id="editProfilModal"
+         tabindex="-1"
+         aria-labelledby="editProfilModalLabel"
+         aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+
+            <div class="modal-content border-0 shadow-lg"
+                 style="border-radius:18px;">
+
+                {{-- MODAL HEADER --}}
+                <div class="modal-header border-0 px-4 pt-4">
+
+                    <div>
+                        <h5 class="modal-title fw-bold"
+                            id="editProfilModalLabel"
+                            style="color:#244D73;">
+
+                            <i class="fa-solid fa-pen-to-square me-2"></i>
+                            Edit Profil Sekolah
+
+                        </h5>
+
+                        <small class="text-muted">
+                            Ubah informasi profil sekolah
+                        </small>
+                    </div>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close">
+                    </button>
+
+                </div>
+
+
+                {{-- MODAL BODY --}}
+                <div class="modal-body px-4 pb-4">
+
+                    {{-- ERROR VALIDATION --}}
+                    @if ($errors->any())
+
+                        <div class="alert alert-danger">
+
+                            <strong>
+                                <i class="fa-solid fa-triangle-exclamation me-1"></i>
+                                Data belum berhasil disimpan.
+                            </strong>
+
+                            <ul class="mb-0 mt-2">
+
+                                @foreach ($errors->all() as $error)
+
+                                    <li>{{ $error }}</li>
+
+                                @endforeach
+
+                            </ul>
+
+                        </div>
+
+                    @endif
+
+
+                    <form
+                        action="{{ route('admin.profil.update', $profil->id_profil) }}"
+                        method="POST"
+                        enctype="multipart/form-data"
+                    >
+
+                        @csrf
+                        @method('PUT')
+
+
+                        <div class="row">
+
+                            {{-- NAMA SEKOLAH --}}
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+                                    <i class="fa-solid fa-school me-1"></i>
+                                    Nama Sekolah
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="nama_sekolah"
+                                    class="form-control @error('nama_sekolah') is-invalid @enderror"
+                                    value="{{ old('nama_sekolah', $profil->nama_sekolah) }}"
+                                    required
+                                >
+
+                                @error('nama_sekolah')
+
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+
+                                @enderror
+
+                            </div>
+
+
+                            {{-- KEPALA SEKOLAH --}}
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+                                    <i class="fa-solid fa-user-tie me-1"></i>
+                                    Kepala Sekolah
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="kepala_sekolah"
+                                    class="form-control @error('kepala_sekolah') is-invalid @enderror"
+                                    value="{{ old('kepala_sekolah', $profil->kepala_sekolah) }}"
+                                    required
+                                >
+
+                                @error('kepala_sekolah')
+
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+
+                                @enderror
+
+                            </div>
+
+
+                            {{-- NPSN --}}
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+                                    <i class="fa-solid fa-id-card me-1"></i>
+                                    NPSN
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="npsn"
+                                    class="form-control @error('npsn') is-invalid @enderror"
+                                    value="{{ old('npsn', $profil->npsn) }}"
+                                    required
+                                >
+
+                                @error('npsn')
+
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+
+                                @enderror
+
+                            </div>
+
+
+                            {{-- TAHUN BERDIRI --}}
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+                                    <i class="fa-solid fa-calendar me-1"></i>
+                                    Tahun Berdiri
+                                </label>
+
+                                <input
+                                    type="number"
+                                    name="tahun_berdiri"
+                                    class="form-control @error('tahun_berdiri') is-invalid @enderror"
+                                    value="{{ old('tahun_berdiri', $profil->tahun_berdiri) }}"
+                                    required
+                                >
+
+                                @error('tahun_berdiri')
+
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+
+                                @enderror
+
+                            </div>
+
+
+                            {{-- ALAMAT --}}
+                            <div class="col-md-12 mb-3">
+
+                                <label class="form-label">
+                                    <i class="fa-solid fa-location-dot me-1"></i>
+                                    Alamat
+                                </label>
+
+                                <textarea
+                                    name="alamat"
+                                    class="form-control @error('alamat') is-invalid @enderror"
+                                    rows="3"
+                                    required
+                                >{{ old('alamat', $profil->alamat) }}</textarea>
+
+                                @error('alamat')
+
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+
+                                @enderror
+
+                            </div>
+
+
+                            {{-- KONTAK --}}
+                            <div class="col-md-12 mb-3">
+
+                                <label class="form-label">
+                                    <i class="fa-solid fa-phone me-1"></i>
+                                    Kontak
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="kontak"
+                                    class="form-control @error('kontak') is-invalid @enderror"
+                                    value="{{ old('kontak', $profil->kontak) }}"
+                                    required
+                                >
+
+                                @error('kontak')
+
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+
+                                @enderror
+
+                            </div>
+
+
+                            {{-- VISI MISI --}}
+                            <div class="col-md-12 mb-3">
+
+                                <label class="form-label">
+                                    <i class="fa-solid fa-eye me-1"></i>
+                                    Visi & Misi
+                                </label>
+
+                                <textarea
+                                    name="visi_misi"
+                                    class="form-control @error('visi_misi') is-invalid @enderror"
+                                    rows="5"
+                                    required
+                                >{{ old('visi_misi', $profil->visi_misi) }}</textarea>
+
+                                @error('visi_misi')
+
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+
+                                @enderror
+
+                            </div>
+
+
+                            {{-- DESKRIPSI --}}
+                            <div class="col-md-12 mb-3">
+
+                                <label class="form-label">
+                                    <i class="fa-solid fa-align-left me-1"></i>
+                                    Deskripsi
+                                </label>
+
+                                <textarea
+                                    name="deskripsi"
+                                    class="form-control @error('deskripsi') is-invalid @enderror"
+                                    rows="5"
+                                    required
+                                >{{ old('deskripsi', $profil->deskripsi) }}</textarea>
+
+                                @error('deskripsi')
+
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+
+                                @enderror
+
+                            </div>
+
+
+                            {{-- FOTO SEKOLAH --}}
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+                                    <i class="fa-solid fa-image me-1"></i>
+                                    Foto Sekolah
+                                </label>
+
+                                @if($profil->foto)
+
+                                    <div class="mb-2">
+
+                                        <img
+                                            src="{{ asset('storage/' . $profil->foto) }}"
+                                            width="180"
+                                            height="120"
+                                            style="object-fit:cover;"
+                                            class="rounded border"
+                                            alt="Foto Sekolah"
+                                        >
+
+                                    </div>
+
+                                @endif
+
+                                <input
+                                    type="file"
+                                    name="foto"
+                                    class="form-control @error('foto') is-invalid @enderror"
+                                    accept=".jpg,.jpeg,.png,.webp"
+                                >
+
+                                @error('foto')
+
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+
+                                @enderror
+
+                                <small class="text-muted">
+                                    Kosongkan jika tidak ingin mengganti foto.
+                                </small>
+
+                            </div>
+
+
+                            {{-- LOGO SEKOLAH --}}
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+                                    <i class="fa-solid fa-image me-1"></i>
+                                    Logo Sekolah
+                                </label>
+
+                                @if($profil->logo)
+
+                                    <div class="mb-2">
+
+                                        <img
+                                            src="{{ asset('storage/' . $profil->logo) }}"
+                                            width="100"
+                                            height="100"
+                                            style="object-fit:contain;"
+                                            class="rounded border"
+                                            alt="Logo Sekolah"
+                                        >
+
+                                    </div>
+
+                                @endif
+
+                                <input
+                                    type="file"
+                                    name="logo"
+                                    class="form-control @error('logo') is-invalid @enderror"
+                                    accept=".jpg,.jpeg,.png,.webp"
+                                >
+
+                                @error('logo')
+
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+
+                                @enderror
+
+                                <small class="text-muted">
+                                    Kosongkan jika tidak ingin mengganti logo.
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        {{-- BUTTON MODAL --}}
+                        <div class="d-flex justify-content-end gap-2 mt-3">
+
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal"
+                            >
+
+                                <i class="fa-solid fa-xmark me-1"></i>
+                                Batal
+
+                            </button>
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                            >
+
+                                <i class="fa-solid fa-floppy-disk me-1"></i>
+                                Simpan Perubahan
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 
     @else
 

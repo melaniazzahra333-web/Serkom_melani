@@ -19,13 +19,13 @@
 
         </div>
 
-        <a
+        {{-- <a
             href="{{ route('admin.pengumuman') }}"
             class="btn btn-secondary"
         >
             <i class="fa-solid fa-arrow-left me-1"></i>
             Kembali
-        </a>
+        </a> --}}
 
     </div>
 
@@ -64,6 +64,7 @@
                 <div class="mb-3">
 
                     <label class="form-label fw-semibold">
+                        <i class="fa-solid fa-heading me-1"></i>
                         Judul Pengumuman
                     </label>
 
@@ -84,6 +85,7 @@
                     <div class="col-md-6 mb-3">
 
                         <label class="form-label fw-semibold">
+                            <i class="fa-solid fa-calendar-days me-1"></i>
                             Tanggal
                         </label>
 
@@ -101,6 +103,7 @@
                     <div class="col-md-6 mb-3">
 
                         <label class="form-label fw-semibold">
+                            <i class="fa-solid fa-circle-info me-1"></i>
                             Status
                         </label>
 
@@ -138,6 +141,7 @@
                 <div class="mb-4">
 
                     <label class="form-label fw-semibold">
+                        <i class="fa-solid fa-align-left me-1"></i>
                         Isi Pengumuman
                     </label>
 
@@ -157,6 +161,7 @@
                         href="{{ route('admin.pengumuman') }}"
                         class="btn btn-secondary"
                     >
+                        <i class="fa-solid fa-xmark me-1"></i>
                         Batal
                     </a>
 

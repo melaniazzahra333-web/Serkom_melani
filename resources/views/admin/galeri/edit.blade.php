@@ -5,7 +5,10 @@
 <div class="container-fluid">
 
     <div class="mb-4">
-        <h2>Edit Galeri</h2>
+        <h2>
+            <i class="fa-solid fa-pen-to-square me-2"></i>
+            Edit Galeri
+        </h2>
         <p class="text-muted mb-0">
             Perbarui data foto atau video
         </p>
@@ -26,6 +29,7 @@
                 <div class="mb-3">
 
                     <label class="form-label">
+                        <i class="fa-solid fa-heading me-1"></i>
                         Judul
                     </label>
 
@@ -49,6 +53,7 @@
                 <div class="mb-3">
 
                     <label class="form-label">
+                        <i class="fa-solid fa-align-left me-1"></i>
                         Keterangan
                     </label>
 
@@ -70,6 +75,7 @@
                 <div class="mb-3">
 
                     <label class="form-label">
+                        <i class="fa-solid fa-layer-group me-1"></i>
                         Kategori
                     </label>
 
@@ -107,6 +113,7 @@
                 <div class="mb-3" id="fotoInput">
 
                     <label class="form-label">
+                        <i class="fa-solid fa-image me-1"></i>
                         Ganti Foto
                     </label>
 
@@ -146,6 +153,7 @@
                 <div class="mb-3" id="videoInput">
 
                     <label class="form-label">
+                        <i class="fa-brands fa-youtube me-1"></i>
                         Link Video YouTube
                     </label>
 
@@ -189,6 +197,7 @@
                 <div class="mb-4">
 
                     <label class="form-label">
+                        <i class="fa-solid fa-calendar-days me-1"></i>
                         Tanggal
                     </label>
 
@@ -218,6 +227,7 @@
                 <a href="{{ route('admin.galeri') }}"
                    class="btn btn-secondary">
 
+                    <i class="fa-solid fa-arrow-left me-1"></i>
                     Kembali
 
                 </a>

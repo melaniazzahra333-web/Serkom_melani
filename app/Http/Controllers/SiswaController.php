@@ -26,11 +26,12 @@ class SiswaController extends Controller
                     ->orWhere('jenis_kelamin', 'like', '%' . $search . '%')
                     ->orWhere('tahun_masuk', 'like', '%' . $search . '%');
             })
+            ->orderBy('created_at', 'asc')
             ->get();
 
         return view('admin.siswa.index', compact('siswas', 'search'));
     }
-   
+
 
     /**
      * Show the form for creating a new resource.

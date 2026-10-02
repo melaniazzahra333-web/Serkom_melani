@@ -23,6 +23,7 @@ class GuruController extends Controller
                     ->orWhere('jabatan', 'like', '%' . $search . '%')
                     ->orWhere('mapel', 'like', '%' . $search . '%');
             })
+            ->orderBy('created_at', 'asc')
             ->get();
 
         return view('admin.guru.index', compact('gurus', 'search'));
@@ -83,7 +84,7 @@ class GuruController extends Controller
     public function edit(string $id)
     {
         //
-         $guru = Guru::findOrFail($id); 
+         $guru = Guru::findOrFail($id);
 
         return view('admin.guru.edit', compact('guru'));
 

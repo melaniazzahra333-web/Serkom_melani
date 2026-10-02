@@ -5,7 +5,10 @@
 <div class="container-fluid">
 
     <div class="mb-4">
-        <h2>Tambah Galeri</h2>
+        <h2>
+            <i class="fa-solid fa-images me-2"></i>
+            Tambah Galeri
+        </h2>
         <p class="text-muted mb-0">
             Tambahkan foto atau video kegiatan sekolah
         </p>
@@ -16,9 +19,14 @@
 
             <form action="{{ route('admin.galeri.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+
                 {{-- Judul --}}
                 <div class="mb-3">
-                    <label class="form-label">Judul</label>
+                    <label class="form-label">
+                        <i class="fa-solid fa-heading me-1"></i>
+                        Judul
+                    </label>
+
                     <input type="text"
                            name="judul"
                            class="form-control"
@@ -34,7 +42,10 @@
 
                 {{-- Keterangan --}}
                 <div class="mb-3">
-                    <label class="form-label">Keterangan</label>
+                    <label class="form-label">
+                        <i class="fa-solid fa-align-left me-1"></i>
+                        Keterangan
+                    </label>
 
                     <textarea name="keterangan" class="form-control" rows="4" required>{{ old('keterangan') }}</textarea>
 
@@ -46,7 +57,10 @@
 
                 {{-- Kategori --}}
                 <div class="mb-3">
-                    <label class="form-label">Kategori</label>
+                    <label class="form-label">
+                        <i class="fa-solid fa-layer-group me-1"></i>
+                        Kategori
+                    </label>
 
                     <select name="kategori" id="kategori" class="form-select" required>
                         <option value="">-- Pilih Kategori --</option>
@@ -63,9 +77,16 @@
                 {{-- File Foto --}}
                 <div class="mb-3" id="fotoInput">
 
-                    <label class="form-label">Upload Foto</label>
+                    <label class="form-label">
+                        <i class="fa-solid fa-image me-1"></i>
+                        Upload Foto
+                    </label>
+
                     <input type="file" name="file" class="form-control" accept=".jpg,.jpeg,.png,.webp">
-                    <small class="text-muted">Format: JPG, JPEG, PNG, WEBP. Maksimal 2 MB.</small>
+
+                    <small class="text-muted">
+                        Format: JPG, JPEG, PNG, WEBP. Maksimal 2 MB.
+                    </small>
 
                     @error('file')
                         <small class="text-danger d-block">{{ $message }}</small>
@@ -77,7 +98,11 @@
                 {{-- Link Video --}}
                 <div class="mb-3" id="videoInput">
 
-                    <label class="form-label">Link Video YouTube</label>
+                    <label class="form-label">
+                        <i class="fa-brands fa-youtube me-1"></i>
+                        Link Video YouTube
+                    </label>
+
                     <input type="url"
                            name="file"
                            class="form-control"
@@ -99,7 +124,11 @@
 
                 {{-- Tanggal --}}
                 <div class="mb-4">
-                    <label class="form-label">Tanggal</label>
+
+                    <label class="form-label">
+                        <i class="fa-solid fa-calendar-days me-1"></i>
+                        Tanggal
+                    </label>
 
                     <input type="date"
                            name="tanggal"
@@ -110,6 +139,7 @@
                     @error('tanggal')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
+
                 </div>
 
 
@@ -123,6 +153,7 @@
                 <a href="{{ route('admin.galeri') }}"
                    class="btn btn-secondary">
 
+                    <i class="fa-solid fa-arrow-left me-1"></i>
                     Kembali
 
                 </a>

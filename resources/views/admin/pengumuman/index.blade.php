@@ -114,9 +114,8 @@
                             href="{{ route('admin.pengumuman') }}"
                             class="btn btn-secondary"
                         >
-
+                            <i class="fa-solid fa-rotate-left me-1"></i>
                             Reset
-
                         </a>
 
                     @endif
@@ -129,6 +128,8 @@
                     class="badge rounded-pill flex-shrink-0 px-3 py-2"
                     style="background:#C8DFDB;color:#3368A0;"
                 >
+
+                    <i class="fa-solid fa-clipboard-list me-1"></i>
 
                     {{ $pengumuman->count() }} Pengumuman
 
@@ -257,6 +258,8 @@
 
                                 <span class="text-muted">
 
+                                    <i class="fa-solid fa-calendar-days me-1"></i>
+
                                     {{ $item->tanggal->format('d M Y') }}
 
                                 </span>
@@ -303,18 +306,17 @@
 
 
                                     {{-- EDIT --}}
-                                    <a
-                                        href="{{ route(
-                                            'admin.pengumuman.edit',
-                                            ['id' => $item->id_pengumuman]
-                                        ) }}"
+                                    <button
+                                        type="button"
                                         class="btn btn-sm btn-warning"
                                         title="Edit"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editPengumuman{{ $item->id_pengumuman }}"
                                     >
 
                                         <i class="fa-solid fa-pen"></i>
 
-                                    </a>
+                                    </button>
 
 
                                     {{-- HAPUS --}}
@@ -330,7 +332,6 @@
                                         @csrf
 
                                         @method('DELETE')
-
 
                                         <button
                                             type="submit"
@@ -349,7 +350,6 @@
                             </td>
 
                         </tr>
-
 
                     @empty
 
@@ -415,6 +415,219 @@
         </div>
 
     </div>
+
+
+    {{-- MODAL EDIT --}}
+    @foreach($pengumuman as $item)
+
+        <div
+            class="modal fade"
+            id="editPengumuman{{ $item->id_pengumuman }}"
+            tabindex="-1"
+            aria-labelledby="editPengumumanLabel{{ $item->id_pengumuman }}"
+            aria-hidden="true"
+        >
+
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+
+                <div
+                    class="modal-content border-0 shadow-lg rounded-4"
+                >
+
+                    {{-- HEADER MODAL --}}
+                    <div class="modal-header border-0 px-4 pt-4">
+
+                        <div>
+
+                            <h5
+                                class="modal-title fw-bold"
+                                id="editPengumumanLabel{{ $item->id_pengumuman }}"
+                                style="color:#244D73;"
+                            >
+
+                                <i class="fa-solid fa-pen-to-square me-2"></i>
+
+                                Edit Pengumuman
+
+                            </h5>
+
+                            <p class="text-muted mb-0">
+                                Ubah informasi pengumuman
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+
+                    </div>
+
+
+                    {{-- BODY MODAL --}}
+                    <div class="modal-body px-4 pb-4">
+
+
+                        <form
+                            action="{{ route(
+                                'admin.pengumuman.update',
+                                ['id' => $item->id_pengumuman]
+                            ) }}"
+                            method="POST"
+                        >
+
+                            @csrf
+                            @method('PUT')
+
+
+                            {{-- JUDUL --}}
+                            <div class="mb-3">
+
+                                <label class="form-label fw-semibold">
+
+                                    <i class="fa-solid fa-heading me-1"></i>
+
+                                    Judul Pengumuman
+
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="judul"
+                                    class="form-control"
+                                    value="{{ old('judul', $item->judul) }}"
+                                    maxlength="50"
+                                    required
+                                >
+
+                            </div>
+
+
+                            {{-- TANGGAL + STATUS --}}
+                            <div class="row">
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label class="form-label fw-semibold">
+
+                                        <i class="fa-solid fa-calendar-days me-1"></i>
+
+                                        Tanggal
+
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        name="tanggal"
+                                        class="form-control"
+                                        value="{{ old('tanggal', $item->tanggal->format('Y-m-d')) }}"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label class="form-label fw-semibold">
+
+                                        <i class="fa-solid fa-circle-info me-1"></i>
+
+                                        Status
+
+                                    </label>
+
+                                    <select
+                                        name="status"
+                                        class="form-select"
+                                        required
+                                    >
+
+                                        <option
+                                            value="Publish"
+                                            {{ old('status', $item->status) == 'Publish' ? 'selected' : '' }}
+                                        >
+                                            Publish
+                                        </option>
+
+                                        <option
+                                            value="Draft"
+                                            {{ old('status', $item->status) == 'Draft' ? 'selected' : '' }}
+                                        >
+                                            Draft
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+
+                            {{-- ISI --}}
+                            <div class="mb-4">
+
+                                <label class="form-label fw-semibold">
+
+                                    <i class="fa-solid fa-align-left me-1"></i>
+
+                                    Isi Pengumuman
+
+                                </label>
+
+                                <textarea
+                                    name="isi"
+                                    class="form-control"
+                                    rows="7"
+                                    required
+                                >{{ old('isi', $item->isi) }}</textarea>
+
+                            </div>
+
+
+                            {{-- BUTTON --}}
+                            <div class="text-end">
+
+                                <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-bs-dismiss="modal"
+                                >
+
+                                    <i class="fa-solid fa-xmark me-1"></i>
+
+                                    Batal
+
+                                </button>
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-success"
+                                >
+
+                                    <i class="fa-solid fa-save me-1"></i>
+
+                                    Simpan Perubahan
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    @endforeach
 
 </div>
 

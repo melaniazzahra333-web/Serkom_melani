@@ -119,23 +119,23 @@
 
                         <tr>
 
-                            <th style="width: 70px;">
+                            <th style="width:70px;">
                                 No
                             </th>
 
-                            <th style="width: 180px;">
+                            <th style="width:180px;">
                                 Foto
                             </th>
 
-                            <th>
+                           <th style="width:35%;">
                                 Deskripsi
                             </th>
 
-                            <th style="width: 160px;">
+                            <th style="width:160px;">
                                 Tahun Ajaran
                             </th>
 
-                            <th style="width: 150px; text-align: center;">
+                            <th style="width:150px;text-align:center;">
                                 Aksi
                             </th>
 
@@ -165,10 +165,10 @@
                                             src="{{ asset('storage/' . $prestasi->foto) }}"
                                             alt="Foto Prestasi"
                                             style="
-                                                width: 120px;
-                                                height: 80px;
-                                                object-fit: cover;
-                                                border-radius: 8px;
+                                                width:100px;
+                                                height:100px;
+                                                object-fit:cover;
+                                                border-radius:8px;
                                             "
                                         >
 
@@ -176,15 +176,15 @@
 
                                         <div
                                             style="
-                                                width: 120px;
-                                                height: 80px;
-                                                border-radius: 8px;
-                                                background: #f1f3f5;
-                                                display: flex;
-                                                align-items: center;
-                                                justify-content: center;
-                                                color: #999;
-                                                font-size: 13px;
+                                                width:120px;
+                                                height:80px;
+                                                border-radius:8px;
+                                                background:#f1f3f5;
+                                                display:flex;
+                                                align-items:center;
+                                                justify-content:center;
+                                                color:#999;
+                                                font-size:13px;
                                             "
                                         >
 
@@ -198,13 +198,9 @@
 
 
                                 {{-- DESKRIPSI --}}
-                                <td>
+                                <td style="width:35%;">
 
-                                    <div style="max-width: 500px;">
-
-                                        {{ $prestasi->deskripsi }}
-
-                                    </div>
+                                    {{ $prestasi->deskripsi }}
 
                                 </td>
 
@@ -223,15 +219,17 @@
                                     <div class="d-flex justify-content-center gap-2">
 
                                         {{-- EDIT --}}
-                                        <a
-                                            href="{{ route('admin.prestasi.edit', $prestasi->id_prestasi) }}"
+                                        <button
+                                            type="button"
                                             class="btn btn-sm btn-warning"
                                             title="Edit"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#editPrestasi{{ $prestasi->id_prestasi }}"
                                         >
 
                                             <i class="fas fa-edit"></i>
 
-                                        </a>
+                                        </button>
 
 
                                         {{-- HAPUS --}}
@@ -263,7 +261,6 @@
 
                             </tr>
 
-
                         @empty
 
                             <tr>
@@ -275,8 +272,8 @@
                                         <i
                                             class="fas fa-medal mb-3"
                                             style="
-                                                font-size: 42px;
-                                                color: #66a3bf;
+                                                font-size:42px;
+                                                color:#66a3bf;
                                             "
                                         ></i>
 
@@ -307,5 +304,194 @@
     </div>
 
 </div>
+
+
+{{-- MODAL EDIT PRESTASI --}}
+@foreach($prestasis as $prestasi)
+
+<div class="modal fade"
+     id="editPrestasi{{ $prestasi->id_prestasi }}"
+     tabindex="-1"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content border-0 shadow-lg"
+             style="border-radius:15px;">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title fw-bold"
+                    style="color:#244D73;">
+
+                    <i class="fas fa-medal me-2"
+                       style="color:#244D73;"></i>
+
+                    Edit Prestasi
+
+                </h5>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <form
+                    action="{{ route('admin.prestasi.update', $prestasi->id_prestasi) }}"
+                    method="POST"
+                    enctype="multipart/form-data"
+                >
+
+                    @csrf
+
+                    @method('PUT')
+
+
+                    {{-- DESKRIPSI --}}
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-semibold">
+
+                            <i class="fas fa-align-left me-1"
+                               style="color:#244D73;"></i>
+
+                            Deskripsi Prestasi
+
+                        </label>
+
+                        <textarea
+                            name="deskripsi"
+                            class="form-control"
+                            rows="5"
+                            required
+                        >{{ $prestasi->deskripsi }}</textarea>
+
+                    </div>
+
+
+                    {{-- TAHUN AJARAN --}}
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-semibold">
+
+                            <i class="fas fa-calendar me-1"
+                               style="color:#244D73;"></i>
+
+                            Tahun Ajaran
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="tahun_ajaran"
+                            class="form-control"
+                            value="{{ $prestasi->tahun_ajaran }}"
+                            placeholder="Contoh: 2025/2026"
+                            required
+                        >
+
+                    </div>
+
+
+                    {{-- FOTO --}}
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-semibold">
+
+                            <i class="fas fa-image me-1"
+                               style="color:#244D73;"></i>
+
+                            Foto Prestasi
+
+                        </label>
+
+                        <input
+                            type="file"
+                            name="foto"
+                            class="form-control"
+                            accept="image/*"
+                        >
+
+                    </div>
+
+
+                    {{-- FOTO SAAT INI --}}
+
+                    @if($prestasi->foto)
+
+                        <div class="mb-4">
+
+                            <p class="fw-semibold mb-2">
+
+                                Foto Saat Ini:
+
+                            </p>
+
+                            <img
+                                src="{{ asset('storage/' . $prestasi->foto) }}"
+                                alt="Foto Prestasi"
+                                style="
+                                    width:180px;
+                                    height:120px;
+                                    object-fit:cover;
+                                    border-radius:8px;
+                                "
+                            >
+
+                        </div>
+
+                    @endif
+
+
+                    {{-- BUTTON --}}
+
+                    <div class="d-flex justify-content-end gap-2 mt-4">
+
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                        >
+
+                            <i class="fas fa-xmark me-1"></i>
+
+                            Batal
+
+                        </button>
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                        >
+
+                            <i class="fas fa-save me-1"></i>
+
+                            Simpan Perubahan
+
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@endforeach
 
 @endsection
